@@ -8,11 +8,11 @@ namespace Quantum.Tests.Events
 {
     public class EventTargetTest
     {
-        public Document Document;
+        public EventTarget EventTarget;
         
         public EventTargetTest()
         {
-            Document = new Document();
+            EventTarget = new EventTarget();
         }
 
         [Fact]
@@ -22,18 +22,18 @@ namespace Quantum.Tests.Events
             var assertEvent = default(Event<IBuildEvent>);
             var count = 0;
             
-            Document.AddEventListener<IBuildEvent>(e =>
+            EventTarget.AddEventListener<IBuildEvent>(e =>
             {
                 assertEvent = e;
                 count++;
             });
-            Document.AddEventListener<IBuildEvent>(e =>
+            EventTarget.AddEventListener<IBuildEvent>(e =>
             {
                 assertEvent = e;
                 count++;
             });
             
-            Document.DispatchEvent(@event);
+            EventTarget.DispatchEvent(@event);
 
             assertEvent.Should().NotBeNull();
             assertEvent.Type.Should().Be<IBuildEvent>();
@@ -45,13 +45,13 @@ namespace Quantum.Tests.Events
         public void RemoveEventTest()
         {
             var @event = new Event<IBuildEvent>();
-            Document.AddEventListener<IBuildEvent>(e => {});
-            Document.RemoveEventListener<IBuildEvent>();
+            EventTarget.AddEventListener<IBuildEvent>(e => {});
+            EventTarget.RemoveEventListener<IBuildEvent>();
             var exception = default(Exception);
 
             try
             {
-                Document.DispatchEvent(@event);
+                EventTarget.DispatchEvent(@event);
             }
             catch (Exception ex)
             {
