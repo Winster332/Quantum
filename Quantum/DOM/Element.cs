@@ -138,5 +138,10 @@ namespace Quantum.DOM
             Attributes.RemoveNamedItem(name);
             Attributes.SetNamedItem(value);
         }
+        
+        public void SetPointerCapture()
+        {
+            /// TODO: Impl
+        }
     }
 }

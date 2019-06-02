@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Quantum.CSSOM
+namespace Quantum.CSSOM.Rules
 {
     public class CSSGroupingRule : CSSRule
     {

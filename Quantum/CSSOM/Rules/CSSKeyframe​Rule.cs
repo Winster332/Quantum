@@ -1,4 +1,4 @@
-namespace Quantum.CSSOM
+namespace Quantum.CSSOM.Rules
 {
     public class CSSKeyframeRule : CSSRule
     {

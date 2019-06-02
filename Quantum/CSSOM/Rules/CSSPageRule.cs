@@ -1,4 +1,4 @@
-namespace Quantum.CSSOM
+namespace Quantum.CSSOM.RUles
 {
     public class CSSPageRule : CSSRule
     {

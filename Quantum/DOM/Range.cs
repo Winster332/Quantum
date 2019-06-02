@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 
 namespace Quantum.DOM
 {
@@ -41,17 +41,17 @@ namespace Quantum.DOM
         {
             StartContainer = referenceNode.PreviousSibling;
         }
-        
+
         public void SetStartAfter(Node referenceNode)
         {
             StartContainer = referenceNode.NextSibling;
         }
-        
+
         public void SetEndBefore(Node referenceNode)
         {
             EndContainer = referenceNode.PreviousSibling;
         }
-        
+
         public void SetEndAfter(Node referenceNode)
         {
             EndContainer = referenceNode.NextSibling;
@@ -67,7 +67,7 @@ namespace Quantum.DOM
                 var targetNode = referenceNode.ParentNode.ChildNodes[i];
 
                 StartOffset++;
-                
+
                 if (targetNode == referenceNode)
                 {
                     EndOffset = StartOffset + 1;
@@ -76,6 +76,7 @@ namespace Quantum.DOM
                     break;
                 }
             }
+
             CommonAncestorContainer = referenceNode;
         }
 
@@ -93,11 +94,71 @@ namespace Quantum.DOM
             StartContainer.AppendChild(EndContainer);
             StartOffset = 0;
             EndOffset = 0;
+            // Impl
         }
 
         public void DeleteContents()
         {
-            
+            // TODO: Impl
+        }
+
+        public void ExtractContents()
+        {
+            // TODO: Impl
+        }
+
+        public void InsetNode()
+        {
+            // TODO: Impl
+        }
+
+        public void SurroundContents()
+        {
+            // TODO: Impl
+        }
+
+        public void CompareBoundaryPoints()
+        {
+            // TODO: Impl
+        }
+
+        public void Detach()
+        {
+            // TODO: Impl
+        }
+
+        public int ComparePoint()
+        {
+            // TODO: Impl
+            return -1;
+        }
+
+        public DocumentFragment CreateContextualFragment()
+        {
+            // TODO: Impl
+            return _document.CreateDocumentFragment();
+        }
+
+        public DOMRect GetBoundingClientRect()
+        {
+            // TODO: Impl
+            return null;
+        }
+
+        public List<DOMRect> getClientRects()
+        {
+            // TODO: Impl
+            return null;
+        }
+
+        public void IntersectsNode()
+        {
+            // TODO: Impl
+        }
+
+        public void IsPointInRange()
+        {
+            // TODO: Impl
         }
 
         public override string ToString()
