@@ -17,4 +17,13 @@
       <ProjectReference Include="..\Quantum\Quantum.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Contents\index.html">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Contents\main.css">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
