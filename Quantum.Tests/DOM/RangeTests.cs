@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using FluentAssertions;
 using Quantum.DOM;
+using Quantum.DOM.Events;
 using Xunit;
 
 namespace Quantum.Tests.DOM
@@ -89,6 +90,13 @@ namespace Quantum.Tests.DOM
             range.Collapsed.Should().BeFalse();
             range.StartOffset.Should().BeGreaterOrEqualTo(0);
             range.EndOffset.Should().BeGreaterOrEqualTo(1);
+            
+            var element = new Element();
+            element.OnGotPointerCapture += (e) =>
+            {
+                Console.WriteLine("Hello");
+            };
+            element.DispatchEvent(new Event<IGotPointerCapture>());
             
             Console.WriteLine("123");
         }
