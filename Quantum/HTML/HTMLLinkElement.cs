@@ -1,4 +1,4 @@
-using Quantum.DOM.CSS;
+using Quantum.CSSOM;
 
 namespace Quantum.HTML
 {

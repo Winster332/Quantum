@@ -24,5 +24,10 @@ namespace Quantum.DOM.Events
 
             return handler;
         }
+
+        public void Invoke(Event<T> @event)
+        {
+            _eventTarget.DispatchEvent(@event);
+        }
     }
 }

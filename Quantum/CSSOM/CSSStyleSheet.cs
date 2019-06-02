@@ -1,10 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Quantum.DOM.Exceptions;
 
-namespace Quantum.DOM.CSS
+namespace Quantum.CSSOM
 {
     public class CSSStyleSheet : StyleSheet
     {

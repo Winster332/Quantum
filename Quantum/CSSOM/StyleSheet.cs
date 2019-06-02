@@ -1,4 +1,6 @@
-namespace Quantum.DOM.CSS
+using Quantum.DOM;
+
+namespace Quantum.CSSOM
 {
     public class StyleSheet
     {

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Quantum.DOM.CSS;
+using Quantum.CSSOM;
 
 namespace Quantum.DOM
 {

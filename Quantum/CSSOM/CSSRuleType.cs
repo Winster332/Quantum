@@ -1,4 +1,4 @@
-namespace Quantum.DOM.CSS
+namespace Quantum.CSSOM
 {
     public enum CSSRuleType
     {

@@ -28,8 +28,8 @@ namespace Quantum.DOM
         public ShadowRoot ShadowRoot { get; set; }
         public string TagName { get; set; }
 
-        public DOMEventHandler<IGotPointerCapture> OnGotPointerCapture;
-        public DOMEventHandler<ILostPointerCapture> OnLostPointerCapture;
+        public DOMEventHandler<IGotPointerCapture> OnGotPointerCapture { get; set; }
+        public DOMEventHandler<ILostPointerCapture> OnLostPointerCapture { get; set; }
 
         public Element()
         {

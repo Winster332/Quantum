@@ -9,6 +9,7 @@ namespace Quantum.DOM.Events
         public bool Cancelable { get; set; }
         public bool Composed { get; set; }
         public long TimeStamp { get; set; }
+        public object Instance { get; set; }
         public Type Type => typeof(TEventHandler);
         public bool IsTrusted { get; set; }
 
