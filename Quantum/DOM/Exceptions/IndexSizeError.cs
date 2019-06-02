@@ -2,9 +2,9 @@ using System;
 
 namespace Quantum.DOM.Exceptions
 {
-    public class IndexSizeError : Exception
+    public class IndexSizeError : DOMException
     {
-        public IndexSizeError() : base("index out of size array")
+        public IndexSizeError() : base("Index out of size array")
         {
         }
     }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quantum.DOM
 {
@@ -59,8 +61,6 @@ namespace Quantum.DOM
 
         public void SelectNode(Node referenceNode)
         {
-            var current = referenceNode;
-
             StartOffset = 0;
             for (var i = 0; i < referenceNode.ParentNode.ChildNodes.Count; i++)
             {
@@ -71,22 +71,66 @@ namespace Quantum.DOM
                 if (targetNode == referenceNode)
                 {
                     EndOffset = StartOffset + 1;
-                    StartContainer = targetNode;
-                    EndContainer = targetNode;
+                    StartContainer = targetNode.ParentNode;
+                    EndContainer = targetNode.ParentNode;
                     break;
                 }
             }
 
-            CommonAncestorContainer = referenceNode;
+            CommonAncestorContainer = GetCommonAncestorContainer(referenceNode);
         }
 
         public void SelectNodeContents(Node referenceNode)
         {
-            StartContainer = referenceNode.FirstChild;
-            EndContainer = referenceNode.LastChild;
-
+            StartContainer = referenceNode;
+            EndContainer = referenceNode;
             StartOffset = 0;
-            EndOffset = referenceNode.ChildNodes.Count;
+            EndOffset = 0;
+            CommonAncestorContainer = GetCommonAncestorContainer(referenceNode);
+            
+            for (var i = 0; i < referenceNode.ParentNode.ChildNodes.Count; i++)
+            {
+                var targetNode = referenceNode.ParentNode.ChildNodes[i];
+
+                if (targetNode.NodeType != NodeType.TextNode)
+                {
+                    StartOffset++;
+                }
+
+                if (StartOffset != 0 && targetNode.NodeType != NodeType.TextNode)
+                {
+                    EndOffset++;
+                }
+
+                if (targetNode == referenceNode)
+                {
+                    if (targetNode.ParentNode.NodeType != NodeType.TextNode)
+                    {
+                        StartContainer = targetNode.ParentNode;
+                        EndContainer = targetNode.ParentNode;
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        private Node GetCommonAncestorContainer(Node referenceNode)
+        {
+            var current = referenceNode;
+            var result = referenceNode;
+            do
+            {
+                if (current.NodeType != NodeType.TextNode)
+                {
+                    result = current;
+                    break;
+                }
+
+                current = current.ParentNode;
+            } while (current != null);
+
+            return result;
         }
 
         public void Collapse(bool toStart)
@@ -100,65 +144,77 @@ namespace Quantum.DOM
         public void DeleteContents()
         {
             // TODO: Impl
+            throw new NotSupportedException();
         }
 
         public void ExtractContents()
         {
             // TODO: Impl
+            throw new NotSupportedException();
         }
 
         public void InsetNode()
         {
             // TODO: Impl
+            throw new NotSupportedException();
         }
 
         public void SurroundContents()
         {
             // TODO: Impl
+            throw new NotSupportedException();
         }
 
         public void CompareBoundaryPoints()
         {
             // TODO: Impl
+            throw new NotSupportedException();
         }
 
         public void Detach()
         {
             // TODO: Impl
+            throw new NotSupportedException();
         }
 
         public int ComparePoint()
         {
             // TODO: Impl
+            throw new NotSupportedException();
             return -1;
         }
 
         public DocumentFragment CreateContextualFragment()
         {
             // TODO: Impl
+            throw new NotSupportedException();
             return _document.CreateDocumentFragment();
         }
 
         public DOMRect GetBoundingClientRect()
         {
             // TODO: Impl
+            throw new NotSupportedException();
             return null;
         }
 
         public List<DOMRect> getClientRects()
         {
             // TODO: Impl
+            throw new NotSupportedException();
             return null;
         }
 
         public void IntersectsNode()
         {
             // TODO: Impl
+            throw new NotSupportedException();
         }
 
         public void IsPointInRange()
         {
             // TODO: Impl
+            throw new NotSupportedException();
         }
 
         public override string ToString()

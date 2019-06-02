@@ -85,11 +85,43 @@ namespace Quantum.Tests.DOM
 
             var range = Document.CreateRange();
             range.SelectNode(target);
+            range.StartContainer.NodeName.Should().BeEquivalentTo("root");
+            range.EndContainer.NodeName.Should().BeEquivalentTo("root");
+            range.Collapsed.Should().BeFalse();
+            range.StartOffset.Should().BeGreaterOrEqualTo(2);
+            range.EndOffset.Should().BeGreaterOrEqualTo(3);
+            
+            var element = new Element();
+            element.OnGotPointerCapture += (e) =>
+            {
+                Console.WriteLine("Hello");
+            };
+            element.DispatchEvent(new Event<IGotPointerCapture>());
+            
+            Console.WriteLine("123");
+        }
+        
+        [Fact]
+        public void RangeWithSelectNodeContents()
+        {
+            var root = CreateNode("root");
+            root.NodeType = NodeType.TextNode;
+            var span = CreateNode("span");
+            span.NodeType = NodeType.TextNode;
+            root.AppendChild(span);
+            var target = CreateNode("a");
+            target.NodeType = NodeType.TextNode;
+            target.AppendChild(CreateNode("b"));
+            root.AppendChild(target);
+            root.AppendChild(CreateNode("p"));
+
+            var range = Document.CreateRange();
+            range.SelectNodeContents(target);
             range.StartContainer.NodeName.Should().BeEquivalentTo("a");
             range.EndContainer.NodeName.Should().BeEquivalentTo("a");
-            range.Collapsed.Should().BeFalse();
+            range.Collapsed.Should().BeTrue();
             range.StartOffset.Should().BeGreaterOrEqualTo(0);
-            range.EndOffset.Should().BeGreaterOrEqualTo(1);
+            range.EndOffset.Should().BeGreaterOrEqualTo(0);
             
             var element = new Element();
             element.OnGotPointerCapture += (e) =>
