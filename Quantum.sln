@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum", "Quantum\Quantum.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Tests", "Quantum.Tests\Quantum.Tests.csproj", "{74505BBB-E021-464F-BC59-E40DB51AB460}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{AD02AE0F-E554-4273-B0CD-63310098BAE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewSimplePage", "Examples\ViewSimplePage\ViewSimplePage.csproj", "{847A7BBF-2148-4499-9B08-365604A8C76B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,12 @@ Global
 		{74505BBB-E021-464F-BC59-E40DB51AB460}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74505BBB-E021-464F-BC59-E40DB51AB460}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74505BBB-E021-464F-BC59-E40DB51AB460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{847A7BBF-2148-4499-9B08-365604A8C76B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{847A7BBF-2148-4499-9B08-365604A8C76B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{847A7BBF-2148-4499-9B08-365604A8C76B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{847A7BBF-2148-4499-9B08-365604A8C76B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{847A7BBF-2148-4499-9B08-365604A8C76B} = {AD02AE0F-E554-4273-B0CD-63310098BAE4}
 	EndGlobalSection
 EndGlobal

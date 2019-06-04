@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Quantum\Quantum.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="OpenTK.NetStandard" Version="1.0.7-prerelease" />
+      <PackageReference Include="SkiaSharp" Version="1.68.0" />
+      <PackageReference Include="SkiaSharp.Views" Version="1.68.0" />
+    </ItemGroup>
+
+</Project>
