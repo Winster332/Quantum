@@ -10,6 +10,7 @@ namespace Quantum.Parser.HTML
     {
         public event EventHandler<string> DetectedNode; 
         public event EventHandler<string> DetectedText;
+        public event EventHandler<List<Attr>> DetectedAttr;
         public event EventHandler StartedProcessing;
         public event EventHandler StoppedProcessing;
 
@@ -92,7 +93,12 @@ namespace Quantum.Parser.HTML
             else if (Instance.State == (HtmlProcessorStates.NodeOpen | HtmlProcessorStates.ExctractAttributes))
             {
                 var attributesSource = _htmlSource.Substring(Instance.FirstIndex, Instance.LastIndex - Instance.FirstIndex);
-//                var attributes = ParseAttributes(attributesSource);
+                var attributes = ParseAttributes(attributesSource);
+
+                if (attributes.Count != 0)
+                {
+                    DetectedAttr?.Invoke(this, attributes);
+                }
 //                ((Element)Instance.Elements.Last()).AddAtribute(attributes);
 
                 //TODO: ATTRIB
@@ -137,20 +143,18 @@ namespace Quantum.Parser.HTML
 
                 if (value == null)
                 {
-//                    result.Add(new Attr
-//                    {
-//                        Type = HtmlElementAttributeType.Flag,
-//                        Flag = key
-//                    });
+                    result.Add(new Attr
+                    {
+                        Prefix = key,
+                    });
                 }
                 else
                 {
-//                    result.Add(new HtmlElementAttribute
-//                    {
-//                        Type = HtmlElementAttributeType.Parameter,
-//                        Key = key,
-//                        Value = value
-//                    });
+                    result.Add(new Attr
+                    {
+                        Name = key,
+                        Value = value
+                    });
                 }
             });
 

@@ -4,7 +4,7 @@ using Quantum.DOM;
 
 namespace Quantum.Parser.HTML
 {
-    public class ProcessorRule : Node, ICloneable
+    public class ProcessorRule : Element, ICloneable
     {
         public bool IsOpen { get; set; }
         public bool IsWithoutClosePair { get; set; }

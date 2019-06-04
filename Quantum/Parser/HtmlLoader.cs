@@ -11,7 +11,7 @@ namespace Quantum.Parser
     public class HtmlLoader
     {
         private HtmlStateMachineProcessor _stateMachine;
-        public List<Node> LoadSource(string source)
+        public List<Element> LoadSource(string source)
         {
             var list = new List<string>();
             var resolver = new HtmlElementResolver();
@@ -38,12 +38,14 @@ namespace Quantum.Parser
                     list.Add(s);
                 }
             };
+            _stateMachine.DetectedAttr += (sender, attrs) =>
+            {
+                resolver.AttachAttributes(attrs);
+            };
             _stateMachine.Run();
-//            var rootsNodes = CreateTree();
 
             var roots = resolver.CreateTree(resolver.Instructions);
             
-            Console.WriteLine("13");
             return null;
         }
 

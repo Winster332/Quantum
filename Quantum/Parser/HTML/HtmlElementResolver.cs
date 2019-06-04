@@ -66,6 +66,14 @@ namespace Quantum.Parser.HTML
             nodeRule.TextContent = text;
         }
 
+        public void AttachAttributes(List<Attr> attrs)
+        {
+            foreach (var attr in attrs)
+            {
+                Instructions[Instructions.Count - 1].Attributes.SetNamedItem(attr);
+            }
+        }
+
         private ProcessorRule DetectNode(string text)
         {
             var node = default(ProcessorRule);
