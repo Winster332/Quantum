@@ -9,16 +9,22 @@ namespace Quantum.DOM
         public NamedNodeMap Attributes { get; set; }
         public DOMTokenList ClassList { get; set; }
         public int ChildElementCount => Children.Count;
-        public HTMLCollection<Element> Children { get; set; }
+
+        public List<Element> Children
+        {
+            get => ChildNodes.Select(x => (Element)x).ToList();
+            set => ChildNodes = value.ToList<Node>();
+        }
+
         public string ClassName { get; set; }
         public float ClientHeight { get; set; }
         public float ClientLeft { get; set; }
         public float ClientTop { get; set; }
         public float ClientWidth { get; set; }
-        public Element FirstElementChild => Children.FirstOrDefault().Value;
+        public Element FirstElementChild => Children.FirstOrDefault();
         public string Id { get; set; }
         public string InnerHTML { get; set; }
-        public Element LastElementChild => Children.LastOrDefault().Value;
+        public Element LastElementChild => Children.LastOrDefault();
         public Element NextElementSibling => NextSibling as Element;
         public Element PreviousElementSibling => PreviousSibling as Element;
         public float ScrollHeight { get; set; }
@@ -30,12 +36,12 @@ namespace Quantum.DOM
 
         public DOMEventHandler<IGotPointerCapture> OnGotPointerCapture { get; set; }
         public DOMEventHandler<ILostPointerCapture> OnLostPointerCapture { get; set; }
-
+        
         public Element()
         {
             Attributes = new NamedNodeMap();
             ClassList = new DOMTokenList();
-            Children = new HTMLCollection<Element>();
+            Children = new List<Element>();
             ClassName = string.Empty;
             NodeType = NodeType.ElementNode;
             ClientHeight = float.NaN;
