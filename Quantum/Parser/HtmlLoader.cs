@@ -11,7 +11,7 @@ namespace Quantum.Parser
     public class HtmlLoader
     {
         private HtmlStateMachineProcessor _stateMachine;
-        public void LoadSource(string source)
+        public List<Node> LoadSource(string source)
         {
             var list = new List<string>();
             var resolver = new HtmlElementResolver();
@@ -19,17 +19,32 @@ namespace Quantum.Parser
             _stateMachine = new HtmlStateMachineProcessor(source);
             _stateMachine.DetectedNode += (sender, s) =>
             {
-                list.Add(s);
-                resolver.Factory(s);
+                var tag = $"<{s}>";
+                
+                list.Add(tag);
+                resolver.FactoryElements(tag);
             };
             _stateMachine.DetectedText += (sender, s) =>
             {
-                list.Add(s);
+                if (s.Replace(" ", "").Replace("\n", "") == "-->")
+                {
+//                    resolver.Factory($"<{s}");
+
+                    list.Add($"<{s}");
+                }
+                else
+                {
+                    resolver.FactoryText(s);
+                    list.Add(s);
+                }
             };
             _stateMachine.Run();
 //            var rootsNodes = CreateTree();
 
+            var roots = resolver.CreateTree(resolver.Instructions);
+            
             Console.WriteLine("13");
+            return null;
         }
 
         public void LoadFromFile(string file)

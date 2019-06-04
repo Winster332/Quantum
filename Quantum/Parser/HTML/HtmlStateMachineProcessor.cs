@@ -12,6 +12,11 @@ namespace Quantum.Parser.HTML
         public event EventHandler<string> DetectedText;
         public event EventHandler StartedProcessing;
         public event EventHandler StoppedProcessing;
+
+        public const char CharacterOpenNode = '<';
+        public const char CharacterCloseNode = '>';
+        public const char CharacterSpaceSymbol = ' ';
+            
         public HtmlStateMachineProcessor(string source) : base(source)
         {
         }
@@ -28,17 +33,17 @@ namespace Quantum.Parser.HTML
                 EndProcessing();
             }
 
-            if (Instance.LastSymbol == '<')
+            if (Instance.LastSymbol == CharacterOpenNode)
             {
                 OpenNode();
             }
             
-            if (Instance.LastSymbol == '>')
+            if (Instance.LastSymbol == CharacterCloseNode)
             {
                 CloseNode();
             }
 
-            if (Instance.LastSymbol == ' ')
+            if (Instance.LastSymbol == CharacterSpaceSymbol)
             {
                 DetectSpace();
             }
@@ -46,7 +51,6 @@ namespace Quantum.Parser.HTML
         
         public void BeginProcessing()
         {
-            Console.WriteLine("BEGIN HTML Processing");
             StartedProcessing?.Invoke(this, null);
         }
 
@@ -58,7 +62,6 @@ namespace Quantum.Parser.HTML
             Instance.Commit();
             
             StoppedProcessing?.Invoke(this, null);
-            Console.WriteLine("END HTML Processing");
         }
 
         public void OpenNode()

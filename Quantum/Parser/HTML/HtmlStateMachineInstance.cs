@@ -14,7 +14,8 @@ namespace Quantum.Parser.HTML
         ExctractAttributes = 0x4, 
         Initializing = 0x8, 
         ReadText = 0x10,
-        Finished = 0x20
+        Finished = 0x20,
+        CommentOpen = 0x21
     }
     
     public class HtmlStateMachineInstance : StateMachineInstance
