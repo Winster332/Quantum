@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <Folder Include="Parser\CSS" />
+      <Folder Include="Platform\Graphics" />
     </ItemGroup>
 
     <ItemGroup>

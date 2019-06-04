@@ -1,5 +1,4 @@
-﻿using System;
-using Quantum.Platform.Core;
+﻿using Quantum.Platform;
 
 namespace ViewSimplePage
 {
@@ -7,10 +6,8 @@ namespace ViewSimplePage
     {
         static void Main(string[] args)
         {
-            using (var window = new DesktopWindow(500, 400))
-            {
-                window.Run(30.0f);
-            }
+            QuantumBuilder.Config(new QuantumBuilderOptions(500, 400))
+                .Startup("index.html");
         }
     }
 }
