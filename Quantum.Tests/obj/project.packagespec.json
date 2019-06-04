@@ -1,0 +1,72 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/Users/kusy/Documents/stas/Quantum/Quantum.Tests/Quantum.Tests.csproj",
+    "projectName": "Quantum.Tests",
+    "projectPath": "/Users/kusy/Documents/stas/Quantum/Quantum.Tests/Quantum.Tests.csproj",
+    "outputPath": "/Users/kusy/Documents/stas/Quantum/Quantum.Tests/obj/",
+    "projectStyle": "PackageReference",
+    "fallbackFolders": [
+      "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+    ],
+    "originalTargetFrameworks": [
+      "netcoreapp3.0"
+    ],
+    "sources": {
+      "https://api.nuget.org/v3/index.json": {},
+      "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+      "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+      "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+      "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+      "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+      "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+    },
+    "frameworks": {
+      "netcoreapp3.0": {
+        "projectReferences": {
+          "/Users/kusy/Documents/stas/Quantum/Quantum/Quantum.csproj": {
+            "projectPath": "/Users/kusy/Documents/stas/Quantum/Quantum/Quantum.csproj"
+          }
+        }
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp3.0": {
+      "dependencies": {
+        "FluentAssertions": {
+          "target": "Package",
+          "version": "[5.6.0, )"
+        },
+        "Microsoft.NET.Test.Sdk": {
+          "target": "Package",
+          "version": "[16.0.1, )"
+        },
+        "Microsoft.NETCore.Platforms": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[3.0.0-preview5.19224.8, )",
+          "autoReferenced": true
+        },
+        "xunit": {
+          "target": "Package",
+          "version": "[2.4.0, )"
+        },
+        "xunit.runner.visualstudio": {
+          "target": "Package",
+          "version": "[2.4.0, )"
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}
