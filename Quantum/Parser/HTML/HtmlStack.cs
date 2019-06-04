@@ -25,7 +25,7 @@ namespace Quantum.Parser.HTML
             {
                 var item = _nodes[i];
 
-                if (item.OriginNode.NodeName.ToLower() == name.ToLower())
+                if (item.NodeName.ToLower() == name.ToLower())
                 {
                     node = item;
                     _nodes.RemoveAt(i);

@@ -6,45 +6,6 @@ using Quantum.HTML;
 
 namespace Quantum.Parser.HTML
 {
-    public class ProcessorRule : ICloneable
-    {
-        public NodeType RuleType { get; set; }
-        public string Name { get; set; }
-        public Type Type { get; set; }
-        public bool IsOpen { get; set; }
-        public bool IsWithoutClosePair { get; set; }
-        public Node OriginNode { get; set; }
-        public int Index { get; set; }
-        public ProcessorRule CloseElement { get; set; }
-        public ProcessorRule Parent { get; set; }
-        public string Value { get; set; }
-        public List<ProcessorRule> Elements { get; set; }
-
-        public ProcessorRule()
-        {
-            RuleType = NodeType.ElementNode;
-            Elements = new List<ProcessorRule>();
-        }
-        
-        public object Clone()
-        {
-            var elms = new ProcessorRule[Elements.Count];
-            Elements.CopyTo(elms, 0);
-            
-            return new ProcessorRule
-            {
-                Name = Name.Clone().ToString(),
-                Type = Type,
-                IsOpen = IsOpen,
-                IsWithoutClosePair = IsWithoutClosePair,
-                Index = Index,
-                CloseElement = CloseElement?.Clone() as ProcessorRule,
-                Parent = Parent?.Clone() as ProcessorRule,
-                Elements = elms.ToList()
-            };
-        }
-    }
-
     public class HtmlElementResolver
     {
         public HtmlStack HtmlStack { get; set; }
@@ -76,8 +37,7 @@ namespace Quantum.Parser.HTML
         {
             DictionaryNodes.Add(tag, new ProcessorRule
             {
-                Name = tag,
-                Type = typeof(T),
+                NodeName = tag,
                 IsWithoutClosePair = isWithoutCloseTag,
                 IsOpen = isOpen
             });
@@ -101,15 +61,9 @@ namespace Quantum.Parser.HTML
         public void FactoryText(string text)
         {
             var nodeRule = DetectNode("#text");
-            nodeRule.Value = text;
-//            Instructions.Add(new ProcessorRule
-//            {
-//                Name = "#text",
-//                Type = typeof(Text),
-//                RuleType = NodeType.TextNode,
-//                IsWithoutClosePair = false,
-//                IsOpen = false
-//            });
+            nodeRule.NodeType = NodeType.TextNode;
+            nodeRule.NodeValue = text;
+            nodeRule.TextContent = text;
         }
 
         private ProcessorRule DetectNode(string text)
@@ -118,11 +72,8 @@ namespace Quantum.Parser.HTML
             if (DictionaryNodes.ContainsKey(text))
             {
                 node = GetNode(text);
-                node.OriginNode = new Node
-                {
-                    NodeType = NodeType.ElementNode,
-                    NodeName = text
-                };
+                node.NodeName = text;
+                node.NodeType = NodeType.ElementNode;
                 node.Index = _totalIndex+1;
                 Instructions.Add(node);
                 _totalIndex++;
@@ -164,13 +115,13 @@ namespace Quantum.Parser.HTML
 
                     if (element.IsWithoutClosePair)
                     {
-                        openedElement = stackOpenElements.Pop(element.OriginNode.NodeName);
+                        openedElement = stackOpenElements.Pop(element.NodeName);
                     }
                     else
                     {
                         openedElement =
                             stackOpenElements.Pop(
-                                $"<{element.OriginNode.NodeName.Substring(2, element.OriginNode.NodeName.Length - 2)}");
+                                $"<{element.NodeName.Substring(2, element.NodeName.Length - 2)}");
                     }
 
                     if (openedElement != null)
@@ -182,7 +133,7 @@ namespace Quantum.Parser.HTML
                 }
             }
             
-            var roots = elements.Where(x => x.Parent == null && x.IsOpen).ToList();
+            var roots = elements.Where(x => x.ParentNode == null && x.IsOpen).ToList();
 
             return roots;
         }
@@ -202,13 +153,13 @@ namespace Quantum.Parser.HTML
             {
                 var element = elements[i];
                 
-                if (element.Parent == null)
+                if (element.ParentNode == null)
                 {
-                    element.Parent = openElement;
+                    element.ParentNode = openElement;
 
                     if (element.IsOpen || element.IsWithoutClosePair)
                     {
-                        openElement.Elements.Add(element);
+                        openElement.ChildNodes.Add(element);
                     }
                 }
             }
