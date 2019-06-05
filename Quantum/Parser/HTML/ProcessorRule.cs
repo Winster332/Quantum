@@ -1,10 +1,11 @@
 using System;
 using System.Linq;
 using Quantum.DOM;
+using Quantum.HTML;
 
 namespace Quantum.Parser.HTML
 {
-    public class ProcessorRule : Element, ICloneable
+    public class ProcessorRule : HTMLElement, ICloneable
     {
         public bool IsOpen { get; set; }
         public bool IsWithoutClosePair { get; set; }

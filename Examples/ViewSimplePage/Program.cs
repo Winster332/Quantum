@@ -7,7 +7,7 @@ namespace ViewSimplePage
         static void Main(string[] args)
         {
             QuantumBuilder.Config(new QuantumBuilderOptions(500, 400))
-                .Startup("index.html");
+                .Startup("Contents/index.html");
         }
     }
 }

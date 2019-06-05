@@ -25,9 +25,23 @@ namespace Quantum.Parser.HTML
         private void InitDictionary()
         {
             AddRule<HTMLDivElement>("<div>");
-            AddRule<HTMLLinkElement>("<a>");
             AddRule<HTMLDivElement>("</div>", false);
+            
+            AddRule<HTMLLinkElement>("<a>");
             AddRule<HTMLLinkElement>("</a>", false);
+            
+            AddRule<HTMLScriptElement>("<script>");
+            AddRule<HTMLScriptElement>("</script>", false);
+            
+            AddRule<HTMLHeadElement>("<head>");
+            AddRule<HTMLHeadElement>("</head>", false);
+            
+            AddRule<HTMLMetaElement>("<meta>");
+            AddRule<HTMLMetaElement>("</meta>", false);
+            
+            AddRule<HTMLTitleElement>("<title>");
+            AddRule<HTMLTitleElement>("</title>", false);
+            
             AddRule<HTMLInputElement>("<input>", false, true);
             AddRule<HTMLInputElement>("#text", false, true);
 //            AddRule<Comment>("<!-->", false);
@@ -70,6 +84,12 @@ namespace Quantum.Parser.HTML
         {
             foreach (var attr in attrs)
             {
+                if (Instructions[Instructions.Count - 1] == null)
+                {
+                    Console.Error.WriteLine("Attr");
+                    continue;
+                }
+
                 Instructions[Instructions.Count - 1].Attributes.SetNamedItem(attr);
             }
         }
@@ -112,6 +132,12 @@ namespace Quantum.Parser.HTML
             {
                 var element = elements[i];
 
+                if (element == null)
+                {
+                    Console.Error.WriteLine($"Not found element [{element}]");
+                    continue;
+                }
+
                 if (element.IsOpen || element.IsWithoutClosePair)
                 {
                     stackOpenElements.Push(element);
@@ -141,7 +167,7 @@ namespace Quantum.Parser.HTML
                 }
             }
             
-            var roots = elements.Where(x => x.ParentNode == null && x.IsOpen).ToList();
+            var roots = elements.Where(x => x != null && x.ParentNode == null && x.IsOpen).ToList();
 
             return roots;
         }

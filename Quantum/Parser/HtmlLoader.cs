@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Quantum.DOM;
+using Quantum.HTML;
 using Quantum.Parser.HTML;
 
 namespace Quantum.Parser
@@ -11,7 +12,7 @@ namespace Quantum.Parser
     public class HtmlLoader
     {
         private HtmlStateMachineProcessor _stateMachine;
-        public List<Element> LoadSource(string source)
+        public List<HTMLElement> LoadSource(string source)
         {
             var list = new List<string>();
             var resolver = new HtmlElementResolver();
@@ -44,16 +45,16 @@ namespace Quantum.Parser
             };
             _stateMachine.Run();
 
-            var roots = resolver.CreateTree(resolver.Instructions);
+            var roots = resolver.CreateTree(resolver.Instructions).Select(x => x as HTMLElement).ToList();
             
-            return null;
+            return roots;
         }
 
-        public void LoadFromFile(string file)
+        public List<HTMLElement> LoadFromFile(string file)
         {
             var source = ReadFromFile(file);
             
-            LoadSource(source);
+            return LoadSource(source);
         }
         
 //        private List<Node> CreateTree()
