@@ -15,4 +15,8 @@
       <PackageReference Include="SkiaSharp.Views" Version="1.68.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Contents\Css" />
+    </ItemGroup>
+
 </Project>

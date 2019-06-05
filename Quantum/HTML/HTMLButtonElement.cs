@@ -19,6 +19,7 @@ namespace Quantum.HTML
         
         public HTMLButtonElement()
         {
+            Init("BUTTON");
             Type = HTMLButtonType.Button;
         }
     }

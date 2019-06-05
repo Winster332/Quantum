@@ -18,6 +18,8 @@ namespace Quantum.HTML
 
         public HTMLFormElement()
         {
+            Init("FORM");
+            
             Elements = new HTMLFormControlsCollection();
             OnReset = new DOMEventHandler<HTMLFormEventReset>(this);
             OnSubmit = new DOMEventHandler<HTMLFormEventSubmit>(this);

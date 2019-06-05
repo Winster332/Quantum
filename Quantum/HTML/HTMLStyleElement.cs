@@ -11,6 +11,7 @@ namespace Quantum.HTML
 
         public HTMLStyleElement()
         {
+            Init("STYLE");
         }
     }
 }

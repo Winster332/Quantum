@@ -32,5 +32,10 @@ namespace Quantum.HTML
         public List<File> Files { get; set; }
         
         // TODO: IMPL AND ADD MORE
+
+        public HTMLInputElement()
+        {
+            Init("INPUT");
+        }
     }
 }
