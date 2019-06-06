@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Quantum.DOM;
 using Quantum.Parser;
 using Quantum.Platform.Core;
@@ -25,7 +26,7 @@ namespace Quantum.Platform
             var loader = new HtmlLoader();
             Window = new Window();
             Window.Document = new Document();
-            loader.LoadFromFile(pathToFileIndex).ForEach(root =>
+            loader.LoadFromFile(pathToFileIndex, Assembly.GetEntryAssembly()).ForEach(root =>
             {
                 Window.Document.ChildNodes.Add(root);
             });

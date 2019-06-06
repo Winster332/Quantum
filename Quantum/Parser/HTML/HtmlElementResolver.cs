@@ -9,6 +9,7 @@ namespace Quantum.Parser.HTML
     public class HtmlElementResolver
     {
         public HtmlStack HtmlStack { get; set; }
+        public event EventHandler<HTMLElement> ElementComplated;
         public Dictionary<string, ProcessorRule> DictionaryNodes { get; set; }
         public List<ProcessorRule> Instructions { get; set; }
         private int _totalIndex = -1;
@@ -53,7 +54,9 @@ namespace Quantum.Parser.HTML
             {
                 NodeName = tag,
                 IsWithoutClosePair = isWithoutCloseTag,
-                IsOpen = isOpen
+                IsOpen = isOpen,
+                ElementInstance = null,
+                ElementType = typeof(T)
             });
         }
         
@@ -75,9 +78,9 @@ namespace Quantum.Parser.HTML
         public void FactoryText(string text)
         {
             var nodeRule = DetectNode("#text");
-            nodeRule.NodeType = NodeType.TextNode;
-            nodeRule.NodeValue = text;
-            nodeRule.TextContent = text;
+            nodeRule.ElementInstance.NodeType = NodeType.TextNode;
+            nodeRule.ElementInstance.NodeValue = text;
+            nodeRule.ElementInstance.TextContent = text;
         }
 
         public void AttachAttributes(List<Attr> attrs)
@@ -90,7 +93,7 @@ namespace Quantum.Parser.HTML
                     continue;
                 }
 
-                Instructions[Instructions.Count - 1].Attributes.SetNamedItem(attr);
+                Instructions[Instructions.Count - 1].ElementInstance.Attributes.SetNamedItem(attr);
             }
         }
 
@@ -101,7 +104,8 @@ namespace Quantum.Parser.HTML
             {
                 node = GetNode(text);
                 node.NodeName = text;
-                node.NodeType = NodeType.ElementNode;
+                node.ElementInstance.NodeName = text;
+                node.ElementInstance.NodeType = NodeType.ElementNode;
                 node.Index = _totalIndex+1;
                 Instructions.Add(node);
                 _totalIndex++;
@@ -118,8 +122,23 @@ namespace Quantum.Parser.HTML
 
         private ProcessorRule GetNode(string text)
         {
-            var tag = DictionaryNodes[text].Clone() as ProcessorRule;
-            
+//            var tag = DictionaryNodes[text].Clone() as ProcessorRule;
+            var element = DictionaryNodes[text];
+            var tag = new ProcessorRule();
+            tag.ElementType = element.ElementType;
+            tag.Index = element.Index;
+            tag.CloseElement = element.CloseElement;
+            tag.NodeName = element.NodeName;
+            tag.Children = new List<ProcessorRule>();
+            tag.IsWithoutClosePair = element.IsWithoutClosePair;
+            tag.IsOpen = element.IsOpen;
+            tag.ElementInstance = Activator.CreateInstance(tag.ElementType) as HTMLElement;
+
+            if (tag.ElementInstance == null)
+            {
+                tag.ElementInstance = new HTMLUnknownElement();
+            }
+
             return tag;
         }
         
@@ -163,11 +182,13 @@ namespace Quantum.Parser.HTML
                         openedElement.CloseElement = element;
 
                         GetChildren(openedElement, openedElement.CloseElement, elements);
+                    
+                        ElementComplated?.Invoke(this, openedElement.ElementInstance);
                     }
                 }
             }
             
-            var roots = elements.Where(x => x != null && x.ParentNode == null && x.IsOpen).ToList();
+            var roots = elements.Where(x => x != null && x.Parent == null && x.IsOpen).ToList();
 
             return roots;
         }
@@ -187,13 +208,14 @@ namespace Quantum.Parser.HTML
             {
                 var element = elements[i];
                 
-                if (element.ParentNode == null)
+                if (element.Parent == null)
                 {
-                    element.ParentNode = openElement;
-
+                    element.Parent = openElement;
+                    
                     if (element.IsOpen || element.IsWithoutClosePair)
                     {
-                        openElement.ChildNodes.Add(element);
+                        openElement.Children.Add(element);
+                        openElement.ElementInstance.AppendChild(element.ElementInstance);
                     }
                 }
             }
