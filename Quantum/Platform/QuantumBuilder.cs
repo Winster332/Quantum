@@ -4,6 +4,7 @@ using System.Reflection;
 using Quantum.DOM;
 using Quantum.Parser;
 using Quantum.Platform.Core;
+using Quantum.Platform.Graphics;
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
 
@@ -15,6 +16,7 @@ namespace Quantum.Platform
         private QuantumBuilderOptions _options;
         public SKColor ClearColor { get; set; }
         public Window Window { get; set; }
+        private HtmlRenderer _renderer;
 
         private QuantumBuilder(QuantumBuilderOptions options)
         {
@@ -26,6 +28,9 @@ namespace Quantum.Platform
         {
             var loader = new HtmlLoader();
             Window = loader.LoadFromFile(pathToFileIndex, typeof(QuantumBuilder).Assembly);
+//            Window.Document.Body
+            
+            _renderer = new HtmlRenderer(Window);
             
             RunWindow();
         }
@@ -67,13 +72,15 @@ namespace Quantum.Platform
 
             var pos = new Position
             {
-                X = 350, 
+                X = 300, 
                 Y = 100
             };
-            DrawElements(canvas, Window.Document.Body.Children, ref pos);
+            DrawTreeElements(canvas, Window.Document.Body.Children, ref pos);
+            
+            _renderer.Render(canvas);
         }
 
-        private void DrawElements(SKCanvas canvas, List<Element> elements, ref Position pos)
+        private void DrawTreeElements(SKCanvas canvas, List<Element> elements, ref Position pos)
         {
             foreach (var element in elements)
             {
@@ -83,7 +90,24 @@ namespace Quantum.Platform
                     {
                         IsAntialias = true,
                         Color = SKColors.DarkOrange,
-                        TextSize = 20
+                        TextSize = 15
+                    });
+
+                    var textPen = new SKPaint
+                    {
+                      IsAntialias = true,
+                      Color = new SKColor(110, 102, 244),
+                      TextSize = 15
+                    };
+                    var bounds = new SKRect();
+                    textPen.MeasureText(element.TextContent, ref bounds);
+                    canvas.DrawText(element.TextContent, pos.X, pos.Y, textPen);
+                    canvas.DrawLine(bounds.Left + pos.X, bounds.Bottom + pos.Y, bounds.Right + pos.X, bounds.Bottom + pos.Y, new SKPaint
+                    {
+                      IsAntialias = true,
+                      Style = SKPaintStyle.Stroke,
+                      StrokeWidth = 1,
+                      Color = textPen.Color
                     });
                 }
                 else
@@ -93,17 +117,26 @@ namespace Quantum.Platform
                         IsAntialias = true,
                         Color = SKColors.Gray,
                         FakeBoldText = true,
-                        TextSize = 20
+                        TextSize = 15
                     });
                 }
 
+                var startLineX = pos.X;
+                var startLineY = pos.Y;
                 pos.Y += 25;
 
                 if (element.Children.Count != 0)
                 {
                     pos.X += 25;
-                    DrawElements(canvas, element.Children, ref pos);
+                    DrawTreeElements(canvas, element.Children, ref pos);
                     pos.X -= 25;
+                    
+                    canvas.DrawLine(startLineX+5, startLineY+5, pos.X+5, pos.Y-15, new SKPaint
+                    {
+                      IsAntialias = true,
+                      Style = SKPaintStyle.Stroke,
+                      Color = SKColors.Cyan
+                    });
                 }
 
             }

@@ -1,3 +1,5 @@
+using SkiaSharp;
+
 namespace Quantum.HTML
 {
     public class HTMLDivElement : HTMLElement
@@ -5,6 +7,11 @@ namespace Quantum.HTML
         public HTMLDivElement()
         {
             Init("DIV");
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+          return false;
         }
     }
 }

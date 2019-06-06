@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SkiaSharp;
 
 namespace Quantum.HTML
 {
@@ -21,6 +22,11 @@ namespace Quantum.HTML
         {
             Init("BUTTON");
             Type = HTMLButtonType.Button;
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+          return false;
         }
     }
 }

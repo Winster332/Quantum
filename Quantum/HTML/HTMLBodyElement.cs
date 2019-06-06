@@ -1,3 +1,5 @@
+using SkiaSharp;
+
 namespace Quantum.HTML
 {
     public class HTMLBodyElement : HTMLElement
@@ -6,6 +8,11 @@ namespace Quantum.HTML
         public HTMLBodyElement()
         {
             Init("BODY");
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+          return false;
         }
     }
 }

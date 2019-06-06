@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Quantum.DOM;
 using Quantum.DOM.Events;
 using Quantum.HTML.Events;
+using SkiaSharp;
 
 namespace Quantum.HTML
 {
@@ -33,6 +34,11 @@ namespace Quantum.HTML
         public void Reset()
         {
             // TODO: Impl
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+          return false;
         }
     }
 }

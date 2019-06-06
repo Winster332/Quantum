@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Quantum.DOM;
+using SkiaSharp;
 
 namespace Quantum.HTML
 {
@@ -36,6 +37,11 @@ namespace Quantum.HTML
         public HTMLInputElement()
         {
             Init("INPUT");
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+          return false;
         }
     }
 }

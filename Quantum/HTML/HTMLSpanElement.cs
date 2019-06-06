@@ -1,3 +1,5 @@
+using SkiaSharp;
+
 namespace Quantum.HTML
 {
     public class HTMLSpanElement : HTMLElement
@@ -5,6 +7,11 @@ namespace Quantum.HTML
         public HTMLSpanElement()
         {
             Init("SPAN");
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+          return false;
         }
     }
 }

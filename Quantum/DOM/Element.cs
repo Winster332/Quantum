@@ -21,8 +21,44 @@ namespace Quantum.DOM
         public string ClassName { get; set; }
         public float ClientHeight { get; set; }
         public float ClientLeft { get; set; }
+        public Element OffsetParent => ParentNode as Element;
+
         public float ClientTop { get; set; }
         public float ClientWidth { get; set; }
+        private float _offsetTop;
+        private float _offsetLeft;
+        private float _offsetWidth;
+        private float _offsetHeight;
+        public float OffsetLeft
+        {
+          get => OffsetParent?.OffsetLeft + _offsetLeft ?? _offsetLeft;
+          set => _offsetLeft = value;
+        }
+
+        public float OffsetTop
+        {
+          get => OffsetParent?.OffsetTop + _offsetTop ?? _offsetTop;
+          set => _offsetTop = value;
+        }
+        public float OffsetWidth
+        {
+          get
+          {
+            var width = 0.0f;
+            Children.ForEach(child => width += child.OffsetWidth);
+            return _offsetWidth + width;
+          }
+          set => _offsetWidth = value;
+        }
+
+        public float OffsetHeight
+        {
+          get
+          {
+            return _offsetHeight;
+          } 
+          set => _offsetHeight = value;
+        }
         public Element FirstElementChild => Children.FirstOrDefault();
         public string Id { get; set; }
         public string InnerHTML { get; set; }
@@ -52,6 +88,10 @@ namespace Quantum.DOM
             ClientWidth = float.NaN;
             OnGotPointerCapture = new DOMEventHandler<IGotPointerCapture>(this);
             OnLostPointerCapture = new DOMEventHandler<ILostPointerCapture>(this);
+            OffsetLeft = 5;
+            OffsetTop = 15;
+            OffsetWidth = 0;
+            OffsetHeight = 0;
         }
 
         public void Closest(string selectors)

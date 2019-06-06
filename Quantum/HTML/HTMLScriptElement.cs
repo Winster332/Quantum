@@ -1,3 +1,5 @@
+using SkiaSharp;
+
 namespace Quantum.HTML
 {
     public class HTMLScriptElement : HTMLElement
@@ -13,6 +15,11 @@ namespace Quantum.HTML
         public HTMLScriptElement()
         {
             Init("SCRIPT");
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+          return false;
         }
     }
 }

@@ -1,4 +1,5 @@
 using Quantum.CSSOM;
+using SkiaSharp;
 
 namespace Quantum.HTML
 {
@@ -12,6 +13,11 @@ namespace Quantum.HTML
         public HTMLStyleElement()
         {
             Init("STYLE");
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+          return false;
         }
     }
 }

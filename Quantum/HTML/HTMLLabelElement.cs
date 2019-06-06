@@ -1,3 +1,5 @@
+using SkiaSharp;
+
 namespace Quantum.HTML
 {
     public class HTMLLabelElement : HTMLElement
@@ -9,6 +11,11 @@ namespace Quantum.HTML
         public HTMLLabelElement()
         {
             Init("LABEL");
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+          return false;
         }
     }
 }

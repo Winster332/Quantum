@@ -1,3 +1,5 @@
+using SkiaSharp;
+
 namespace Quantum.HTML
 {
     public class HTMLTitleElement : HTMLElement
@@ -7,6 +9,11 @@ namespace Quantum.HTML
         public HTMLTitleElement()
         {
             Init("TITLE");
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+          return false;
         }
     }
 }
