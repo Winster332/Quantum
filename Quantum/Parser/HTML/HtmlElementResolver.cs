@@ -43,6 +43,9 @@ namespace Quantum.Parser.HTML
             AddRule<HTMLTitleElement>("<title>");
             AddRule<HTMLTitleElement>("</title>", false);
             
+            AddRule<HTMLButtonElement>("<button>");
+            AddRule<HTMLButtonElement>("</button>", false);
+            
             AddRule<HTMLInputElement>("<input>", false, true);
             AddRule<HTMLTextElement>("#text", false, true);
 //            AddRule<Comment>("<!-->", false);

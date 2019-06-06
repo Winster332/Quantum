@@ -17,22 +17,13 @@ namespace Quantum.HTML
         var bounds = new SKRect();
         textPen.MeasureText(TextContent, ref bounds);
 
-        var x = OffsetLeft;
-        OffsetTop = bounds.Top;
+        OffsetTop = bounds.Top + 10;
         OffsetLeft = bounds.Left;
         OffsetWidth = bounds.Width;
         OffsetHeight = bounds.Height;
         
-        var prevElement = ParentNode.PreviousSibling as HTMLElement;
-
-        if (prevElement != null)
-        {
-          x += prevElement.OffsetWidth + bounds.Left + 10;
-        }
-
-        canvas.DrawText(TextContent, x, OffsetTop, textPen);
-        canvas.DrawLine(x, bounds.Bottom + OffsetTop, x + bounds.Right,
-          bounds.Bottom + OffsetTop,
+        canvas.DrawText(TextContent, OffsetLeft, OffsetTop, textPen);
+        canvas.DrawLine(OffsetLeft, OffsetTop + 2, OffsetLeft + OffsetWidth,OffsetTop + 2,
           new SKPaint
           {
             IsAntialias = true,
@@ -40,6 +31,24 @@ namespace Quantum.HTML
             StrokeWidth = 1,
             Color = textPen.Color
           });
+      }
+      else
+      {
+        var textPen = new SKPaint
+        {
+          IsAntialias = true,
+          Color = new SKColor(50, 50, 50),
+          TextSize = 15
+        };
+        var bounds = new SKRect();
+        textPen.MeasureText(TextContent, ref bounds);
+
+        OffsetTop = bounds.Top + 10;
+        OffsetLeft = bounds.Left;
+        OffsetWidth = bounds.Width;
+        OffsetHeight = bounds.Height;
+        
+        canvas.DrawText(TextContent, OffsetLeft, OffsetTop, textPen);
       }
 
       return true;

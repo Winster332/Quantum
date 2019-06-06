@@ -26,6 +26,31 @@ namespace Quantum.HTML
 
         internal override bool Draw(SKCanvas canvas)
         {
+          var x = 50;
+          var y = 50;
+          var width = 60;
+          var height = 25;
+          
+          canvas.DrawRoundRect(x, x,width, height, 2, 2, new SKPaint
+          {
+            IsAntialias = true,
+            Shader = SKShader.CreateLinearGradient(
+              new SKPoint(width / 2, 0),
+              new SKPoint(width / 2, height),
+              new SKColor[]
+              {
+                new SKColor(240, 240, 240), 
+                new SKColor(200, 200, 200),
+              },
+              new float[] { 0, 1 },
+              SKShaderTileMode.Repeat)
+          });
+          canvas.DrawRoundRect(x, x,width, height, 1, 1, new SKPaint
+          {
+            IsAntialias = true,
+            Style = SKPaintStyle.Stroke,
+            Color = new SKColor(150, 150, 150)
+          });
           return false;
         }
     }
