@@ -2,7 +2,9 @@ namespace Quantum.CSSOM.Common.BoxModel
 {
   public enum CSSBorderType
   {
-    Solid
+    Solid,
+    Dashed,
+    Double
   }
   public class CSSBorder : CSSBox
   {

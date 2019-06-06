@@ -3,7 +3,9 @@ namespace Quantum.CSSOM.Common
   public enum CSSNumberType
   {
     Px,
-    Pc
+    Pc,
+    Rem,
+    Em
   }
 
   public class CSSNumber
@@ -35,7 +37,25 @@ namespace Quantum.CSSOM.Common
       {
         type = CSSNumberType.Pc;
         
-        if (float.TryParse(text.Replace("$", ""), out var n))
+        if (float.TryParse(text.Replace("%", ""), out var n))
+        {
+          value = n;
+        }
+      }
+      else if (text.Contains("rem"))
+      {
+        type = CSSNumberType.Rem;
+        
+        if (float.TryParse(text.Replace("rem", ""), out var n))
+        {
+          value = n;
+        }
+      }
+      else if (text.Contains("em"))
+      {
+        type = CSSNumberType.Em;
+        
+        if (float.TryParse(text.Replace("em", ""), out var n))
         {
           value = n;
         }

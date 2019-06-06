@@ -49,6 +49,7 @@ namespace Quantum.CSSOM.Common
     }
 
     public static readonly CSSColor White = new CSSColor(255, 255, 255);
+    public static readonly CSSColor Black = new CSSColor(0, 0, 0);
 
     public static CSSColor Parse(string hex)
     {
