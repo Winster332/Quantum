@@ -21,7 +21,7 @@ namespace Quantum.Tests.Parsers
         {
             var tree = Loader.LoadFromFile($"Contents/index.html", typeof(HtmlParserTests).Assembly);
             
-            var allNodes = tree.GraphLookup();
+//            var allNodes = tree.GraphLookup();
 
             Console.WriteLine("TEST");
         }

@@ -15,7 +15,7 @@ namespace Quantum.Parser
     public class HtmlLoader
     {
         private HtmlStateMachineProcessor _stateMachine;
-        public List<HTMLElement> LoadSource(string source, Assembly assembly)
+        public Window LoadSource(string source, Assembly assembly)
         {
             var list = new List<string>();
             var resolver = new HtmlElementResolver();
@@ -107,10 +107,10 @@ namespace Quantum.Parser
                     }
                 });
             
-            return roots;
+            return window;
         }
 
-        public List<HTMLElement> LoadFromFile(string file, Assembly assembly)
+        public Window LoadFromFile(string file, Assembly assembly)
         {
             var source = ReadFromFile(file);
             
