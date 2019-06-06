@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Quantum.CSSOM;
 using Quantum.DOM.Events;
+using Quantum.HTML;
 
 namespace Quantum.DOM
 {
@@ -9,8 +11,13 @@ namespace Quantum.DOM
     {
         public string ContentType { get; set; }
         public Encoding CharacterSet { get; set; }
+        public List<StyleSheet> StyleSheets { get; set; }
         public DocumentType DocType { get; set; }
-        public Element DocumentElement { get; set; }
+        public Element DocumentElement => FirstChild as Element;
+        public HTMLBodyElement Body { get; set; }
+        public HTMLHeadElement Head { get; set; }
+        public string Title { get; set; }
+        public List<HTMLScriptElement> Scripts { get; set; }
         
         public Document()
         {
