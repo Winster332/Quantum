@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Quantum.CSSOM;
 using Quantum.DOM.Events;
+using Quantum.Extensions;
 using Quantum.HTML;
 
 namespace Quantum.DOM
@@ -45,6 +47,29 @@ namespace Quantum.DOM
                 OwnerDocument = this,
                 ParentNode = this
             };
+        }
+
+        public Element CreateElement<T>() where T : HTMLElement
+        {
+            var type = typeof(T);
+            var element = Activator.CreateInstance(type) as HTMLElement;
+
+            return element;
+        }
+
+        public HTMLElement GetElementById(string id)
+        {
+            var element = Body.Children
+                .GraphLookup()
+                .Where(x => x.GetAttribute("id") != null)
+                .FirstOrDefault(x => x.GetAttribute("id").Value.Replace("\"", "") == id);
+
+            return element as HTMLElement;
+        }
+
+        public List<HTMLElement> GetElementsByClassName(string className)
+        {
+            return Body.GetElementsByClassName(className);
         }
 
 //        public void CreateEvent<T>()

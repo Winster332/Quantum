@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Quantum.DOM.Events;
+using Quantum.Extensions;
+using Quantum.HTML;
 
 namespace Quantum.DOM
 {
@@ -89,10 +91,27 @@ namespace Quantum.DOM
             return null;
         }
 
-        public List<Element> GetElementsByClassName()
+        public List<HTMLElement> GetElementsByClassName(string className)
         {
-            /// TODO: Impl
-            return null;
+            className = className.ToLower();
+            
+            var elements = Children
+                .GraphLookup()
+                .Where(x => x.GetAttribute("class") != null)
+                .Select(x => new
+                {
+                    Segments = x.GetAttribute("class").Value
+                        .Replace("\"", "")
+                        .Split(' ')
+                        .Select(c => c.ToLower())
+                        .ToList(),
+                    Element = x
+                })
+                .Where(x => x.Segments.Contains(className))
+                .Select(x => x.Element as HTMLElement)
+                .ToList();
+
+            return elements;
         }
         
         public List<Element> GetElementsByTagName()

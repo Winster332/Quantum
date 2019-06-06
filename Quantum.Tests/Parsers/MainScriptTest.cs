@@ -7,7 +7,13 @@ namespace Quantum.Tests.Parsers
     {
         public void Start()
         {
-            Console.WriteLine("Main script started");
+//            var element = Document.CreateElement<HTMLDivElement>();
+            
+//            Document.Body.AppendChild(element);
+
+            var elementById = Document.GetElementById("password-input");
+            var elementByName = Document.GetElementsByClassName("link");
+            Console.WriteLine("123");
         }
     }
 }

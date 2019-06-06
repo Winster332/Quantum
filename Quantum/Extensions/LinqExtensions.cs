@@ -16,6 +16,15 @@ namespace Quantum.Extensions
 
             return result;
         }
+        
+        public static List<Element> GraphLookup(this List<Element> elements)
+        {
+            var result = new List<Element>();
+
+            FindChildInDepth(elements.Select(x => x as Element).ToList(), result);
+
+            return result;
+        }
 
         private static void FindChildInDepth(List<Element> elements, List<Element> result)
         {

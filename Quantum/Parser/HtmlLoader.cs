@@ -75,9 +75,18 @@ namespace Quantum.Parser
             _stateMachine.Run();
 
             var roots = resolver.CreateTree(resolver.Instructions).Select(x => x.ElementInstance as HTMLElement).ToList();
-            window.Document.ChildNodes = roots.Select(x => x as Node).ToList();
+            var allNodes = roots.GraphLookup();
             window.Screen = new Screen();
-            roots.GraphLookup()
+            window.Document.Body = allNodes.FirstOrDefault(x => x is HTMLBodyElement) as HTMLBodyElement;
+
+            if (window.Document.Body == null)
+            {
+                window.Document.Body = new HTMLBodyElement();
+            }
+            
+            window.Document.Body.ChildNodes = roots.Select(x => x as Node).ToList();
+
+            allNodes
                 .Where(x => x is HTMLScriptElement)
                 .Where(x => x.GetAttribute("src") != null)
                 .Select(x => x.GetAttribute("src").Value.Replace("\"", ""))
