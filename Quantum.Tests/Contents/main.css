@@ -2,8 +2,12 @@
 .fixed {
     color: white;
     background-color: #CCCCCC;
+    padding: 10px;
+    opacity: 1;
 }
 
 caption {
+    background: #555555;
+    padding-left: 100px;
     color: black;
 }

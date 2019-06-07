@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Quantum.CSSOM.Common;
+using Quantum.CSSOM.Common.BoxModel;
 using Quantum.CSSOM.Properties;
 using Quantum.Extensions;
 
@@ -15,11 +16,23 @@ namespace Quantum.CSSOM
         
         [CssField("background")]
         public CSSBackground Background { get; set; }
+        
+        [CssField("padding")]
+        public CSSPadding Padding { get; set; }
+        
+        [CssField("margin")]
+        public CSSMargin Margin { get; set; }
+        
+        [CssField("border")]
+        public CSSBorder Border { get; set; }
 
         public CSSStyleDeclaration()
         {
             Color = new CSSColor();
             Background = new CSSBackground();
+            Padding = new CSSPadding();
+            Margin = new CSSMargin();
+            Border = new CSSBorder();
         }
         
         public string GetCssText()
@@ -28,8 +41,6 @@ namespace Quantum.CSSOM
             return "";
         }
         
-        
-
         public static CSSStyleDeclaration Parse(Dictionary<string, string> fields)
         {
             var style = new CSSStyleDeclaration();

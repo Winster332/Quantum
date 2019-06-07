@@ -6,5 +6,15 @@ namespace Quantum.CSSOM.Properties
   {
     [CssField("color")]
     public CSSColor Color { get; set; }
+
+    public static CSSBackground Parse(string value)
+    {
+      var background = new CSSBackground
+      {
+        Color = CSSColor.Parse(value)
+      };
+
+      return background;
+    }
   }
 }
