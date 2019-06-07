@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Quantum.Parser.CSS;
 
 namespace Quantum.CSSOM.Common
 {
@@ -51,17 +52,48 @@ namespace Quantum.CSSOM.Common
     public static readonly CSSColor White = new CSSColor(255, 255, 255);
     public static readonly CSSColor Black = new CSSColor(0, 0, 0);
 
-    public static CSSColor Parse(string hex)
+    public static CSSColor Parse(string value)
     {
+      var color = ParseConstant(value);
+
+      if (color == null)
+      {
+        color = ParseHex(value);
+      }
+
+      return color;
+    }
+    public static CSSColor ParseConstant(string colorName)
+    {
+      if (CSSColorsDictionary.Colors.ContainsKey(colorName))
+      {
+        var color = CSSColorsDictionary.Colors[colorName];
+        
+        return new CSSColor(color.R, color.G, color.B, color.A);
+      }
+
+      return null;
+    }
+    public static CSSColor ParseHex(string hex)
+    {
+      try
+      {
         var bytes = Enumerable.Range(0, hex.Length)
           .Where(x => x % 2 == 0)
           .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
           .ToArray();
-        
+
         var color = new CSSColor();
         color._bytes = bytes;
-        
+
         return color;
+      }
+      catch
+      {
+        Console.Error.WriteLine("Not hex format");
+      }
+
+      return null;
     }
 
     public override string ToString()

@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using Quantum.CSSOM.Common;
 
 namespace Quantum.CSSOM
 {
     public class CSSStyleDeclaration
     {
+        public CSSColor Color { get; set; }
+        
         public string GetCssText()
         {
             // TODO: Impl
@@ -12,9 +15,20 @@ namespace Quantum.CSSOM
 
         public static CSSStyleDeclaration Parse(Dictionary<string, string> fields)
         {
-            // TODO: Impl
+            var style = new CSSStyleDeclaration();
+            
+            foreach (var keyValuePair in fields)
+            {
+                var fieldName = keyValuePair.Key;
+                var value = keyValuePair.Value;
 
-            return null;
+                if (fieldName == "color")
+                {
+                    style.Color = CSSColor.Parse(value.Replace(" ", ""));
+                }
+            }
+
+            return style;
         }
     }
 }
