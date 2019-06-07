@@ -76,6 +76,7 @@ namespace Quantum.CSSOM.Common
     }
     public static CSSColor ParseHex(string hex)
     {
+      hex = hex.Replace("#", "");
       try
       {
         var bytes = Enumerable.Range(0, hex.Length)
@@ -84,7 +85,20 @@ namespace Quantum.CSSOM.Common
           .ToArray();
 
         var color = new CSSColor();
-        color._bytes = bytes;
+
+        if (bytes.Length == 3)
+        {
+          color._bytes = new byte[4];
+          color.A = 255;
+          color.R = bytes[0];
+          color.G = bytes[1];
+          color.B = bytes[2];
+        }
+        else
+        {
+          color._bytes = bytes;
+        }
+
 
         return color;
       }

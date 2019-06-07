@@ -21,6 +21,19 @@ namespace Quantum.Tests.CSS
     }
     
     [Fact]
+    public void CSSColorParseHexWithoutAlpha()
+    {
+      var color = CSSColor.ParseHex("#FFFFFF");
+
+      color.Should().NotBeNull();
+      
+      color.A.Should().BeGreaterOrEqualTo(255);
+      color.R.Should().BeGreaterOrEqualTo(255);
+      color.G.Should().BeGreaterOrEqualTo(255);
+      color.B.Should().BeGreaterOrEqualTo(255);
+    }
+    
+    [Fact]
     public void CSSColorParseConstTest()
     {
       var color = CSSColor.ParseConstant("black");
