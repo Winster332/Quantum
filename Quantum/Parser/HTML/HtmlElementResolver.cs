@@ -8,6 +8,7 @@ namespace Quantum.Parser.HTML
 {
     public class HtmlElementResolver
     {
+        private CssLoader _cssLoader;
         public HtmlStack HtmlStack { get; set; }
         public event EventHandler<HTMLElement> ElementComplated;
         public Dictionary<string, ProcessorRule> DictionaryNodes { get; set; }
@@ -19,6 +20,7 @@ namespace Quantum.Parser.HTML
             Instructions = new List<ProcessorRule>();
             DictionaryNodes = new Dictionary<string, ProcessorRule>();
             HtmlStack = new HtmlStack();
+            _cssLoader = new CssLoader();
             
             InitDictionary();
         }
@@ -28,8 +30,8 @@ namespace Quantum.Parser.HTML
             AddRule<HTMLDivElement>("<div>");
             AddRule<HTMLDivElement>("</div>", false);
             
-            AddRule<HTMLLinkElement>("<a>");
-            AddRule<HTMLLinkElement>("</a>", false);
+            AddRule<HTMLLinkElement>("<link>");
+            AddRule<HTMLLinkElement>("</link>", false);
             
             AddRule<HTMLScriptElement>("<script>");
             AddRule<HTMLScriptElement>("</script>", false);

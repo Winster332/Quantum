@@ -4,6 +4,10 @@ namespace Quantum.HTML
 {
   public class HTMLTextElement : HTMLElement
   {
+    internal override void Load()
+    {
+    }
+
     internal override bool Draw(SKCanvas canvas)
     {
       if (ParentNode.GetType() == typeof(HTMLLinkElement))
@@ -21,9 +25,9 @@ namespace Quantum.HTML
         OffsetLeft = bounds.Left;
         OffsetWidth = bounds.Width;
         OffsetHeight = bounds.Height;
-        
+
         canvas.DrawText(TextContent, OffsetLeft, OffsetTop, textPen);
-        canvas.DrawLine(OffsetLeft, OffsetTop + 2, OffsetLeft + OffsetWidth,OffsetTop + 2,
+        canvas.DrawLine(OffsetLeft, OffsetTop + 2, OffsetLeft + OffsetWidth, OffsetTop + 2,
           new SKPaint
           {
             IsAntialias = true,
@@ -47,7 +51,7 @@ namespace Quantum.HTML
         OffsetLeft = bounds.Left;
         OffsetWidth = bounds.Width;
         OffsetHeight = bounds.Height;
-        
+
         canvas.DrawText(TextContent, OffsetLeft, OffsetTop, textPen);
       }
 

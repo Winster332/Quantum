@@ -9,6 +9,10 @@ namespace Quantum.HTML
             Init("SPAN");
         }
 
+        internal override void Load()
+        {
+        }
+
         internal override bool Draw(SKCanvas canvas)
         {
           return false;

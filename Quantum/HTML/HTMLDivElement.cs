@@ -9,6 +9,10 @@ namespace Quantum.HTML
             Init("DIV");
         }
 
+        internal override void Load()
+        {
+        }
+
         internal override bool Draw(SKCanvas canvas)
         {
           return false;

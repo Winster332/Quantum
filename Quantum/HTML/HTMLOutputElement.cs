@@ -39,6 +39,10 @@ namespace Quantum.HTML
             // TODO: Impl
         }
 
+        internal override void Load()
+        {
+        }
+
         internal override bool Draw(SKCanvas canvas)
         {
           return false;

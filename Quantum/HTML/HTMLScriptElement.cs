@@ -17,6 +17,10 @@ namespace Quantum.HTML
             Init("SCRIPT");
         }
 
+        internal override void Load()
+        {
+        }
+
         internal override bool Draw(SKCanvas canvas)
         {
           return false;

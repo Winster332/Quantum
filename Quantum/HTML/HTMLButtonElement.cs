@@ -24,6 +24,10 @@ namespace Quantum.HTML
             Type = HTMLButtonType.Button;
         }
 
+        internal override void Load()
+        {
+        }
+
         internal override bool Draw(SKCanvas canvas)
         {
           var x = 50;

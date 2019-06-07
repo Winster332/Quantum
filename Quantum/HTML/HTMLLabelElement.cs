@@ -13,6 +13,10 @@ namespace Quantum.HTML
             Init("LABEL");
         }
 
+        internal override void Load()
+        {
+        }
+
         internal override bool Draw(SKCanvas canvas)
         {
           return false;

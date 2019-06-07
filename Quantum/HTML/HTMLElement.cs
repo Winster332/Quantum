@@ -9,7 +9,10 @@ namespace Quantum.HTML
 
         protected void Init(string tagName)
         {
+            TagName = tagName;
         }
+
+        internal abstract void Load();
 
         internal abstract bool Draw(SKCanvas canvas);
     }

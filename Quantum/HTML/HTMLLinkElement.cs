@@ -17,8 +17,12 @@ namespace Quantum.HTML
 
         public HTMLLinkElement()
         {
-            Init("A");
+            Init("LINK");
             TextContent = null;
+        }
+
+        internal override void Load()
+        {
         }
 
         internal override bool Draw(SKCanvas canvas)
