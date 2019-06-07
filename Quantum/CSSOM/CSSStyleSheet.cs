@@ -6,17 +6,17 @@ namespace Quantum.CSSOM
 {
     public class CSSStyleSheet : StyleSheet
     {
-        public Dictionary<int, CSSRule> CssRules { get; set; }
+        public List<CSSRule> CssRules { get; set; }
         public CSSRule OwnerRule { get; set; }
         
         public CSSStyleSheet()
         {
-            CssRules = new Dictionary<int, CSSRule>();
+            CssRules = new List<CSSRule>();
         }
 
         public void DeleteRule(int index)
         {
-            CssRules.Remove(index);
+            CssRules.RemoveAt(index);
         }
 
         public int InsertRule(string rule, int index)
@@ -38,8 +38,8 @@ namespace Quantum.CSSOM
             cssRule.ParentStyleSheet = this;
             cssRule.CssText = rule;
 
-            CssRules.Add(index, cssRule);
-            CssRules = CssRules.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+//            CssRules.Add(index, cssRule);
+//            CssRules = CssRules.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
 
             return index;
         }

@@ -16,7 +16,7 @@ namespace Quantum.Tests.Parsers
     [Fact]
     public void ParseFromFileTest()
     {
-      Loader.LoadFromFile($"Contents/main.css");
+      var stylesheet = Loader.LoadFromFile($"Contents/main.css");
 
       Console.WriteLine("TEST");
     }

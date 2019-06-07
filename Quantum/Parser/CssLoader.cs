@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Quantum.CSSOM;
 using Quantum.Parser.CSS;
 
 namespace Quantum.Parser
@@ -8,19 +9,19 @@ namespace Quantum.Parser
   {
     private CssStateMachineProcessor _stateMachine;
 
-    public void LoadSource(string source)
+    public CSSStyleSheet LoadSource(string source)
     {
       _stateMachine = new CssStateMachineProcessor(source);
       _stateMachine.Run();
-      
-      Console.WriteLine("Hello");
+
+      return _stateMachine.Instance.StyleSheet;
     }
 
-    public void LoadFromFile(string file)
+    public CSSStyleSheet LoadFromFile(string file)
     {
       var source = ReadFromFile(file);
 
-      LoadSource(source);
+      return LoadSource(source);
     }
 
     private string ReadFromFile(string fileName)
