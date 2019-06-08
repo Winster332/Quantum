@@ -28,6 +28,9 @@ namespace Quantum.CSSOM
         
         [CssField("cursor")]
         public CSSCursor Cursor { get; set; }
+        
+        [CssField("float")]
+        public CSSFloat Float { get; set; }
 
         public CSSStyleDeclaration()
         {
@@ -37,6 +40,7 @@ namespace Quantum.CSSOM
             Margin = new CSSMargin();
             Border = new CSSBorder();
             Cursor = new CSSCursor();
+            Float = new CSSFloat();
         }
         
         public string GetCssText()
