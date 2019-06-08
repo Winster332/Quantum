@@ -1,4 +1,6 @@
+using System;
 using Quantum.CSSOM;
+using Quantum.Parser;
 using SkiaSharp;
 
 namespace Quantum.HTML
@@ -18,6 +20,16 @@ namespace Quantum.HTML
 
         internal override void Load()
         {
+            if (FirstChild == null) return;
+
+            if (FirstChild is HTMLTextElement textElement)
+            {
+                var loader = new CssLoader();
+                var text = textElement.TextContent;
+                
+                Sheet = loader.LoadSource(text);
+                OwnerDocument.StyleSheets.Add(Sheet);
+            }
         }
 
         internal override bool Draw(SKCanvas canvas)

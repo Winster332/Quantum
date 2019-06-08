@@ -59,5 +59,24 @@ namespace Quantum.Tests.Parsers
 
             styleSheet.CssRules.Should().HaveCount(2);
         }
+        
+        [Fact]
+        public void ParseFromFileWithStyleCss()
+        {
+            var timer = new Stopwatch();
+            timer.Start();
+
+            var window = Loader.LoadFromFile($"Contents/test_style.html");
+            timer.Stop();
+            _testOutputHelper.WriteLine(timer.Elapsed.ToString());
+            var document = window.Document;
+
+            document.StyleSheets.Should().HaveCount(1);
+
+            var styleSheet = document.StyleSheets.FirstOrDefault() as CSSStyleSheet;
+            styleSheet.Should().NotBeNull();
+
+            styleSheet.CssRules.Should().HaveCount(1);
+        }
     }
 }

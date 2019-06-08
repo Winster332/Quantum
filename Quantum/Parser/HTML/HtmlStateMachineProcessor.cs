@@ -43,6 +43,7 @@ namespace Quantum.Parser.HTML
             AddRule<HTMLTitleElement>();
             AddRule<HTMLBodyElement>();
             AddRule<HTMLLinkElement>();
+            AddRule<HTMLStyleElement>();
             AddRule<HTMLButtonElement>();
         }
 
