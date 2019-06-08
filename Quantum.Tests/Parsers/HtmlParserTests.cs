@@ -4,6 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using Quantum.CSSOM;
 using Quantum.Parser;
+using Quantum.Tests.Parsers.Scripts;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -77,6 +78,34 @@ namespace Quantum.Tests.Parsers
             styleSheet.Should().NotBeNull();
 
             styleSheet.CssRules.Should().HaveCount(1);
+        }
+        
+        [Fact]
+        public void ParseFromFileWithApplyScript()
+        {
+            var timer = new Stopwatch();
+            timer.Start();
+
+            var window = Loader.LoadFromFile($"Contents/test_apply_script.html");
+            timer.Stop();
+            _testOutputHelper.WriteLine(timer.Elapsed.ToString());
+            var document = window.Document;
+
+            document.Scripts.Should().HaveCount(1);
+        }
+        
+        [Fact]
+        public void ParseFromFileWithApplyScriptInFile()
+        {
+            var timer = new Stopwatch();
+            timer.Start();
+
+            var window = Loader.LoadFromFile($"Contents/test_apply_script_in_tag.html");
+            timer.Stop();
+            _testOutputHelper.WriteLine(timer.Elapsed.ToString());
+            var document = window.Document;
+
+            document.Scripts.Should().HaveCount(1);
         }
     }
 }

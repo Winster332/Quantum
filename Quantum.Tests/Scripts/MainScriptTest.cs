@@ -1,7 +1,7 @@
 using System;
 using Quantum.HTML;
 
-namespace Quantum.Tests.Parsers
+namespace Quantum.Tests.Parsers.Scripts
 {
     public class MainScriptTest : Script, IScriptable
     {

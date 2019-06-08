@@ -62,6 +62,7 @@ namespace Quantum.DOM
             CharacterSet = Encoding.UTF8;
             DocType = new DocumentType(this);
             StyleSheets = new List<StyleSheet>();
+            Scripts = new List<HTMLScriptElement>();
         }
 
         private HTMLBodyElement GetBody()
