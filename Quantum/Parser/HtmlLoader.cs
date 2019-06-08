@@ -25,8 +25,30 @@ namespace Quantum.Parser
             var window = new Window();
             window.Document = _stateMachine.Document;
             window.Screen = new Screen();
+            
+            InitDocument(window.Document);
 
             return window;
+        }
+
+        private void InitDocument(Document document)
+        {
+            InitElements(document.ChildNodes.Select(x => x as HTMLElement).ToList());
+        }
+
+        private void InitElements(List<HTMLElement> elements)
+        {
+            foreach (var element in elements)
+            {
+                if (element == null)
+                {
+                    continue;
+                }
+                
+                element.Load();
+                
+                InitElements(element.Children.Select(x => x as HTMLElement).ToList());
+            }
         }
 
         public Window LoadFromFile(string file)
@@ -35,74 +57,6 @@ namespace Quantum.Parser
             
             return LoadSource(source);
         }
-        
-//        private List<Node> CreateTree()
-//        {
-//            var elements = _stateMachine.Instance.Elements;
-//            var stackOpenElements = new HtmlStack();
-//            var currentLevel = 0;
-//            
-//            for (var i = 0; i < elements.Count; i++)
-//            {
-//                var element = elements[i];
-//
-//                if (element.IsOpen != null)
-//                {
-//                    if (element.IsOpen.Value)
-//                    {
-//                        stackOpenElements.Push(element);
-//                        currentLevel++;
-//                    }
-//                    else
-//                    {
-//                        var openedElement = stackOpenElements.Pop(element.NodeName.Substring(1, element.NodeName.Length - 1));
-//
-//                        if (openedElement != null)
-//                        {
-//                            openedElement.CloseElement = element;
-//                        }
-//
-//                        GetChilds(openedElement, element, elements);
-//                    }
-//                }
-//            }
-//
-//            var roots = elements.Where(x => x.ParentNode == null && x.IsOpen == true).ToList();
-//
-//            return roots;
-//        }
-        
-//        private void GetChilds(Node openNode, Node closeNode, List<Node> elements)
-//        {
-//            var result = new List<Node>();
-//            var startIndex = openNode.Index+1;
-//            var endIndex = closeNode.Index;
-//            
-//            for (var i = startIndex; i < endIndex; i++)
-//            {
-//                var element = elements[i];
-//                if (element.Parent == null)
-//                {
-//                    element.Parent = openNode;
-//
-//
-//                    if (element.IsOpen != null)
-//                    {
-//                        if (element.IsOpen.Value)
-//                        {
-//                            openNode.Elements.Add(element);
-//                        }
-//                    }
-//
-//                    if (element.IsOpen == null)
-//                    {
-//                        openNode.Elements.Add(element);
-//                    }
-//                }
-//
-//                result.Add(element);
-//            }
-//        }
         
         private string ReadFromFile(string fileName)
         {

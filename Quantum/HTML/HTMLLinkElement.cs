@@ -1,4 +1,6 @@
+using System;
 using Quantum.CSSOM;
+using Quantum.Parser;
 using SkiaSharp;
 
 namespace Quantum.HTML
@@ -20,10 +22,23 @@ namespace Quantum.HTML
         {
             Init("LINK");
             TextContent = null;
+            IsNeedClose = false;
         }
 
         internal override void Load()
         {
+            var href = GetAttribute("href");
+
+            if (href == null) return;
+            
+            var pathToFile = href.Value.Replace("\"", "");
+
+            var cssLoader = new CssLoader();
+            Sheet = cssLoader.LoadFromFile(pathToFile);
+            Sheet.Href = pathToFile;
+            Sheet.OwnerNode = this;
+                
+            OwnerDocument.StyleSheets.Add(Sheet);
         }
 
         internal override bool Draw(SKCanvas canvas)

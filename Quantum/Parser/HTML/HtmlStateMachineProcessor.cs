@@ -132,6 +132,7 @@ namespace Quantum.Parser.HTML
             var textElement = new HTMLTextElement();
             textElement.TextContent = source;
             textElement.NodeType = NodeType.TextNode;
+            textElement.OwnerDocument = Document;
 
             var openElement = default(HTMLElement);
 
@@ -165,32 +166,6 @@ namespace Quantum.Parser.HTML
             else if (tag.FirstOrDefault() == '/')
             {
                 var element = OpennedElements.Pop();
-                
-                Console.WriteLine("123");
-//                var stack = new Stack<HTMLElement>();
-//                var targetTag = tag.Substring(1, tag.Length - 1);
-
-//                var openElement = default(HTMLElement);
-//                
-//                for (var i = Instance.Elements.Count - 1; i > 0; i--)
-//                {
-//                    var element = Instance.Elements[i];
-//
-//                    if (element.NodeName == targetTag)
-//                    {
-//                        openElement = element as HTMLElement;
-//                        break;
-//                    }
-//
-//                    stack.Push(element as HTMLElement);
-//                }
-
-//                var elements = stack.ToList();
-//
-//                if (openElement != null)
-//                {
-//                    elements.ForEach(x => openElement.AppendChild(x));
-//                }
             }
             else if (source.LastOrDefault() == '/')
             {
@@ -229,6 +204,7 @@ namespace Quantum.Parser.HTML
                 }
 
                 elementInstance.NodeName = tag;
+                elementInstance.OwnerDocument = Document;
                 attrs?.ForEach(x => elementInstance.Attributes.SetNamedItem(x));
                 Instance.Elements.Add(elementInstance);
 

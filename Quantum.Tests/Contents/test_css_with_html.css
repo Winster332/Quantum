@@ -1,0 +1,13 @@
+
+.gray {
+    color: white;
+    background-color: #CCCCCC;
+    padding: 10px;
+    opacity: 1;
+}
+
+body {
+    background: #555555;
+    padding-left: 100px;
+    color: black;
+}
