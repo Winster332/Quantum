@@ -40,5 +40,10 @@ namespace Quantum.Parser.HTML
 //            };
             return null;
         }
+
+        public override string ToString()
+        {
+            return ElementInstance?.ToString();
+        }
     }
 }

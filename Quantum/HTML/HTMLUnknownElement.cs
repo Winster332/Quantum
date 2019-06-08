@@ -4,6 +4,10 @@ namespace Quantum.HTML
 {
     public class HTMLUnknownElement : HTMLElement
     {
+        public HTMLUnknownElement()
+        {
+            IsNeedClose = false;
+        }
         internal override void Load()
         {
         }

@@ -12,6 +12,7 @@ namespace Quantum.Parser.HTML
         public HtmlStack HtmlStack { get; set; }
         public event EventHandler<HTMLElement> ElementComplated;
         public Dictionary<string, ProcessorRule> DictionaryNodes { get; set; }
+        public Dictionary<string, Action<string>> ActionsRules { get; set; }
         public List<ProcessorRule> Instructions { get; set; }
         private int _totalIndex = -1;
 
@@ -19,6 +20,7 @@ namespace Quantum.Parser.HTML
         {
             Instructions = new List<ProcessorRule>();
             DictionaryNodes = new Dictionary<string, ProcessorRule>();
+            ActionsRules = new Dictionary<string, Action<string>>();
             HtmlStack = new HtmlStack();
             _cssLoader = new CssLoader();
             
@@ -27,20 +29,27 @@ namespace Quantum.Parser.HTML
 
         private void InitDictionary()
         {
+            AddActionOnTag("<!doctype>", s => Console.WriteLine($"Detected: {s}"));
+            
             AddRule<HTMLDivElement>("<div>");
             AddRule<HTMLDivElement>("</div>", false);
             
-            AddRule<HTMLLinkElement>("<link>");
-            AddRule<HTMLLinkElement>("</link>", false);
+            AddRule<HTMLLinkElement>("<link>", false, true);
+//            AddRule<HTMLLinkElement>("</link>", false);
             
             AddRule<HTMLScriptElement>("<script>");
             AddRule<HTMLScriptElement>("</script>", false);
             
+            AddRule<HTMLHtmlElement>("<html>");
+            AddRule<HTMLHtmlElement>("</html>", false);
+            
+            AddRule<HTMLBodyElement>("<body>");
+            AddRule<HTMLBodyElement>("</body>", false);
+            
             AddRule<HTMLHeadElement>("<head>");
             AddRule<HTMLHeadElement>("</head>", false);
             
-            AddRule<HTMLMetaElement>("<meta>");
-            AddRule<HTMLMetaElement>("</meta>", false);
+            AddRule<HTMLMetaElement>("<meta>",  false, true);
             
             AddRule<HTMLTitleElement>("<title>");
             AddRule<HTMLTitleElement>("</title>", false);
@@ -64,9 +73,20 @@ namespace Quantum.Parser.HTML
                 ElementType = typeof(T)
             });
         }
-        
+
+        private void AddActionOnTag(string tag, Action<string> callback)
+        {
+            ActionsRules.Add(tag, callback);
+        }
+
         public Node FactoryElements(string text)
         {
+            if (ActionsRules.ContainsKey(text.ToLower()))
+            {
+                ActionsRules[text.ToLower()].Invoke(text);
+                return null;
+            }
+
             var nodeRule = DetectNode(text);
 
             if (nodeRule != null)
@@ -92,6 +112,11 @@ namespace Quantum.Parser.HTML
         {
             foreach (var attr in attrs)
             {
+                if (Instructions.Count == 0)
+                {
+                    continue;
+                }
+
                 if (Instructions[Instructions.Count - 1] == null)
                 {
                     Console.Error.WriteLine("Attr");
@@ -212,7 +237,12 @@ namespace Quantum.Parser.HTML
             for (var i = startIndex; i < endIndex; i++)
             {
                 var element = elements[i];
-                
+
+                if (element == null)
+                {
+                    continue;
+                }
+
                 if (element.Parent == null)
                 {
                     element.Parent = openElement;

@@ -2,6 +2,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML
 {
+    [HtmlName("span")]
     public class HTMLSpanElement : HTMLElement
     {
         public HTMLSpanElement()

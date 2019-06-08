@@ -4,6 +4,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML
 {
+    [HtmlName("out")]
     public class HTMLOutputElement : HTMLElement
     {
         public string DefaultValue { get; set; }

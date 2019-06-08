@@ -2,6 +2,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML
 {
+    [HtmlName("head")]
     public class HTMLHeadElement : HTMLElement
     {
         internal override void Load()

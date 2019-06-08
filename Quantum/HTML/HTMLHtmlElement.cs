@@ -2,6 +2,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML
 {
+    [HtmlName("html")]
     public class HTMLHtmlElement : HTMLElement
     {
         public HTMLHtmlElement()

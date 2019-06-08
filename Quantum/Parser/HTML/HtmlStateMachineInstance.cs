@@ -15,7 +15,8 @@ namespace Quantum.Parser.HTML
         Initializing = 0x8, 
         ReadText = 0x10,
         Finished = 0x20,
-        CommentOpen = 0x21
+        CommentOpen = 0x21,
+        FindNode
     }
     
     public class HtmlStateMachineInstance : StateMachineInstance
@@ -23,6 +24,7 @@ namespace Quantum.Parser.HTML
         public List<Node> Elements { get; set; }
         public HtmlProcessorStates State { get; set; }
         public int DepthLevel { get; set; }
+        public int IndexOpenNode { get; set; }
 
         public HtmlStateMachineInstance()
         {

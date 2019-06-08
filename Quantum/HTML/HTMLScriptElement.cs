@@ -2,6 +2,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML
 {
+    [HtmlName("script")]
     public class HTMLScriptElement : HTMLElement
     {
         public string Type { get; set; }

@@ -19,7 +19,8 @@ namespace Quantum.Tests.Parsers
         [Fact]
         public void ParseFromFileTest()
         {
-            var window = Loader.LoadFromFile($"Contents/index.html", typeof(HtmlParserTests).Assembly);
+//            var window = Loader.LoadFromFile($"Contents/index.html", typeof(HtmlParserTests).Assembly);
+            var window = Loader.LoadFromFile($"Contents/html_document.html", typeof(HtmlParserTests).Assembly);
             var document = window.Document;
 //            var allNodes = tree.GraphLookup();
 

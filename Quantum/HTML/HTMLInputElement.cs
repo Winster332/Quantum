@@ -4,6 +4,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML
 {
+    [HtmlName("input")]
     public class HTMLInputElement : HTMLElement
     {
         public HTMLFormElement Form { get; set; }

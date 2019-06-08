@@ -6,6 +6,7 @@ namespace Quantum.HTML
     public abstract class HTMLElement : Element
     {
         public string AccessKey { get; set; }
+        internal bool IsNeedClose { get; set; } = true;
 
         protected void Init(string tagName)
         {
@@ -15,5 +16,6 @@ namespace Quantum.HTML
         internal abstract void Load();
 
         internal abstract bool Draw(SKCanvas canvas);
+        
     }
 }

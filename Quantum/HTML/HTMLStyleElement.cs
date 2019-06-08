@@ -3,6 +3,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML
 {
+    [HtmlName("style")]
     public class HTMLStyleElement : HTMLElement, ILinkStyle
     {
         public string Media { get; set; }

@@ -3,6 +3,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML
 {
+    [HtmlName("button")]
     public class HTMLButtonElement : HTMLElement
     {
         public HTMLFormElement Form { get; set; }

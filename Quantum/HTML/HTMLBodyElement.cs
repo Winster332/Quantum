@@ -2,6 +2,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML
 {
+    [HtmlName("body")]
     public class HTMLBodyElement : HTMLElement
     {
         // TODO: Added event handlers

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Quantum.DOM;
+using Quantum.HTML;
 using Quantum.Parser.Common;
 
 namespace Quantum.Parser.HTML
@@ -16,10 +18,54 @@ namespace Quantum.Parser.HTML
 
         public const char CharacterOpenNode = '<';
         public const char CharacterCloseNode = '>';
-        public const char CharacterSpaceSymbol = ' ';
+        public Document Document { get; set; }
+        
+        public Dictionary<string, Type> DomElements { get; set; }
+        public Dictionary<string, Action<string, List<Attr>>> RuleActions { get; set; }
+        public Stack<HTMLElement> OpennedElements { get; set; }
             
         public HtmlStateMachineProcessor(string source) : base(source)
         {
+            OpennedElements = new Stack<HTMLElement>();
+            DomElements = new Dictionary<string, Type>();
+            RuleActions = new Dictionary<string, Action<string, List<Attr>>>();
+            Document = new Document();
+            
+            AddRule("!doctype", (tag, attrs) =>
+            {
+                Document.DocType = new DocumentType(Document);
+                Document.DocType.Name = attrs.FirstOrDefault()?.Value;
+            });
+            
+            AddRule<HTMLHtmlElement>();
+            AddRule<HTMLHeadElement>();
+            AddRule<HTMLMetaElement>();
+            AddRule<HTMLTitleElement>();
+            AddRule<HTMLBodyElement>();
+            AddRule<HTMLLinkElement>();
+            AddRule<HTMLButtonElement>();
+        }
+
+        private void AddRule<T>() where T : class
+        {
+            var type = typeof(T);
+            var attribute = type.GetCustomAttributes(typeof(HtmlNameAttribute), false).FirstOrDefault() as HtmlNameAttribute;
+
+            if (attribute != null)
+            {
+                var name = attribute.Name;
+
+                DomElements.Add(name, type);
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        private void AddRule(string tag, Action<string, List<Attr>> callback)
+        {
+            RuleActions.Add(tag, callback);
         }
 
         public override void ResolveSymbol()
@@ -36,78 +82,204 @@ namespace Quantum.Parser.HTML
 
             if (Instance.LastSymbol == CharacterOpenNode)
             {
-                OpenNode();
-            }
-            
-            if (Instance.LastSymbol == CharacterCloseNode)
-            {
-                CloseNode();
+                var text = _htmlSource
+                    .Substring(Instance.IndexOpenNode, Instance.LastIndex - Instance.IndexOpenNode + 1)
+                    .Replace(">", "")
+                    .Replace("<", "");
+                
+                if (CheckOnText(text))
+                {
+                    ResolveTextElement(text);
+                }
+
+                Instance.IndexOpenNode = Instance.LastIndex;
+                Instance.Commit();
             }
 
-            if (Instance.LastSymbol == CharacterSpaceSymbol)
+            if (Instance.LastSymbol == CharacterCloseNode)
             {
-                DetectSpace();
+                var sourceElement = _htmlSource.Substring(Instance.IndexOpenNode, Instance.LastIndex - Instance.IndexOpenNode+1);
+                
+                DetectElement(sourceElement);
+                
+                Instance.IndexOpenNode += sourceElement.Length-1;
+                Instance.Commit();
             }
         }
-        
-        public void BeginProcessing()
+
+        private bool CheckOnText(string text)
         {
+            if (text.Length == 1)
+            {
+                var symbol = text.FirstOrDefault();
+                
+                if (symbol == CharacterOpenNode || symbol == CharacterCloseNode)
+                {
+                    return false;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(text.Replace("\n", "")))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void ResolveTextElement(string source)
+        {
+            var textElement = new HTMLTextElement();
+            textElement.TextContent = source;
+            textElement.NodeType = NodeType.TextNode;
+
+            var openElement = default(HTMLElement);
+
+            if (OpennedElements.Count != 0)
+            {
+                openElement = OpennedElements.Pop();
+            }
+
+            if (openElement != null)
+            {
+                openElement.AppendChild(textElement);
+                OpennedElements.Push(openElement);
+            }
+            else
+            {
+                Document.AppendChild(textElement);
+            }
+        }
+
+        private void DetectElement(string source)
+        {
+            source = source.Substring(1, source.Length - 2);
+            var tag = source.Split(' ').First().ToLower();
+            var attrs = ResolveAttributes(source, tag);
+            
+            if (RuleActions.ContainsKey(tag))
+            {
+                var action = RuleActions[tag];
+                action.Invoke(tag, attrs);
+            }
+            else if (tag.FirstOrDefault() == '/')
+            {
+                var element = OpennedElements.Pop();
+                
+                Console.WriteLine("123");
+//                var stack = new Stack<HTMLElement>();
+//                var targetTag = tag.Substring(1, tag.Length - 1);
+
+//                var openElement = default(HTMLElement);
+//                
+//                for (var i = Instance.Elements.Count - 1; i > 0; i--)
+//                {
+//                    var element = Instance.Elements[i];
+//
+//                    if (element.NodeName == targetTag)
+//                    {
+//                        openElement = element as HTMLElement;
+//                        break;
+//                    }
+//
+//                    stack.Push(element as HTMLElement);
+//                }
+
+//                var elements = stack.ToList();
+//
+//                if (openElement != null)
+//                {
+//                    elements.ForEach(x => openElement.AppendChild(x));
+//                }
+            }
+            else if (source.LastOrDefault() == '/')
+            {
+                var elementType = DomElements[tag];
+                var elementInstance = Activator.CreateInstance(elementType) as HTMLElement;
+
+                if (elementInstance != null)
+                {
+                    elementInstance.IsNeedClose = false;
+                }
+
+                ResolveElement(elementInstance, elementType, tag, attrs);
+            }
+            else if (DomElements.ContainsKey(tag))
+            {
+                var elementType = DomElements[tag];
+                var elementInstance = Activator.CreateInstance(elementType) as HTMLElement;
+
+                ResolveElement(elementInstance, elementType, tag, attrs);
+            }
+        }
+
+        private void ResolveElement(HTMLElement elementInstance, Type elementType, string tag, List<Attr> attrs)
+        {
+            if (elementInstance == null)
+            {
+                Console.WriteLine($"Error created instance {elementType} for {tag}");
+            }
+            else
+            {
+                var openElement = default(HTMLElement);
+
+                if (OpennedElements.Count != 0)
+                {
+                    openElement = OpennedElements.Pop();
+                }
+
+                elementInstance.NodeName = tag;
+                attrs?.ForEach(x => elementInstance.Attributes.SetNamedItem(x));
+                Instance.Elements.Add(elementInstance);
+
+                if (openElement != null)
+                {
+                    openElement.AppendChild(elementInstance);
+                    OpennedElements.Push(openElement);
+                }
+                else
+                {
+                    Document.AppendChild(elementInstance);
+                }
+
+                if (elementInstance.IsNeedClose)
+                {
+                    OpennedElements.Push(elementInstance);
+                }
+            }
+        }
+
+        private List<Attr> ResolveAttributes(string source, string tag)
+        {
+            var attrs = new List<Attr>();
+            
+            if (source.Length != tag.Length)
+            {
+                var sourceAttrs = source.Substring(tag.Length + 1, source.Length - tag.Length - 1);
+
+                attrs = ParseAttributes(sourceAttrs);
+            }
+
+            return attrs;
+        }
+
+        private void BeginProcessing()
+        {
+            Instance.State = HtmlProcessorStates.FindNode;
             StartedProcessing?.Invoke(this, null);
         }
 
-        public void EndProcessing()
+        private void EndProcessing()
         {
-            var nodeName = _htmlSource.Substring(Instance.FirstIndex, Instance.LastIndex - Instance.FirstIndex);
-            AddElementToInstance(nodeName);
-            Instance.State = HtmlProcessorStates.Finished;
-            Instance.Commit();
+//            var nodeName = _htmlSource.Substring(Instance.FirstIndex, Instance.LastIndex - Instance.FirstIndex);
+//            AddElementToInstance(nodeName);
+//            Instance.State = HtmlProcessorStates.Finished;
+//            Instance.Commit();
             
             StoppedProcessing?.Invoke(this, null);
         }
 
-        public void OpenNode()
-        {
-            Instance.State = HtmlProcessorStates.NodeOpen;
-            var content = _htmlSource.Substring(Instance.FirstIndex, Instance.LastIndex - Instance.FirstIndex);
-
-            if (!string.IsNullOrWhiteSpace(content))
-            {
-                AddTextToInstance(content);
-                DetectedText?.Invoke(this, content);
-            }
-
-            Instance.Commit();
-        }
-        
-        public void CloseNode()
-        {
-            if (Instance.State == HtmlProcessorStates.NodeOpen)
-            {
-                var nodeName = _htmlSource.Substring(Instance.FirstIndex, Instance.LastIndex - Instance.FirstIndex);
-                AddElementToInstance(nodeName);
-                Instance.State = HtmlProcessorStates.ReadText;
-                Instance.Commit();
-                
-                DetectedNode?.Invoke(this, nodeName);
-            }
-            else if (Instance.State == (HtmlProcessorStates.NodeOpen | HtmlProcessorStates.ExctractAttributes))
-            {
-                var attributesSource = _htmlSource.Substring(Instance.FirstIndex, Instance.LastIndex - Instance.FirstIndex);
-                var attributes = ParseAttributes(attributesSource);
-
-                if (attributes.Count != 0)
-                {
-                    DetectedAttr?.Invoke(this, attributes);
-                }
-//                ((Element)Instance.Elements.Last()).AddAtribute(attributes);
-
-                //TODO: ATTRIB
-                Instance.State = HtmlProcessorStates.NodeClose;
-                Instance.Commit();
-            }
-        }
-
-        public List<Attr> ParseAttributes(string source)
+        private List<Attr> ParseAttributes(string source)
         {
             var current = "";
             var isOpenCell = false;
@@ -159,52 +331,6 @@ namespace Quantum.Parser.HTML
             });
 
             return result;
-        }
-
-        public void AddTextToInstance(string text)
-        {
-            Instance.AddNode(new Node 
-            {
-                NodeType = NodeType.TextNode,
-//                Index = Instance.Elements.Count,
-//                Depth = Instance.DepthLevel,
-//                Text = text
-            });
-        }
-        public void AddElementToInstance(string name)
-        {
-//            if (name.First() != '/')
-//            {
-//                Instance.DepthLevel++;
-//            }
-
-            Instance.AddNode(new Node 
-            {
-                NodeType = NodeType.ElementNode,
-//                Id = Guid.NewGuid(),
-//                Index = Instance.Elements.Count,
-//                Depth = Instance.DepthLevel,
-                NodeName = name
-            });
-            
-//            if (name.First() == '/')
-//            {
-//                Instance.DepthLevel--;
-//            }
-        }
-
-        public void DetectSpace()
-        {
-            if (Instance.State == HtmlProcessorStates.NodeOpen)
-            {
-                var nodeName = _htmlSource.Substring(Instance.FirstIndex, Instance.LastIndex - Instance.FirstIndex);
-                Instance.State = HtmlProcessorStates.NodeOpen | HtmlProcessorStates.ExctractAttributes;
-                
-                AddElementToInstance(nodeName);
-                Instance.Commit();
-                
-                DetectedNode?.Invoke(this, nodeName);
-            }
         }
     }
 }

@@ -6,6 +6,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML
 {
+    [HtmlName("form")]
     public class HTMLFormElement : HTMLElement
     {
         public long Length => Elements.Count + ChildNodes.Count;
