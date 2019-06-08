@@ -11,6 +11,12 @@ namespace Quantum.CSSOM
 {
     public class CSSStyleDeclaration
     {
+        [CssField("position")]
+        public CSSPosition Position { get; set; }
+        
+        [CssField("display")]
+        public CSSDisplay Display { get; set; }
+        
         [CssField("color")]
         public CSSColor Color { get; set; }
         
@@ -34,6 +40,18 @@ namespace Quantum.CSSOM
         
         [CssField("font")]
         public CSSFont Font { get; set; }
+        
+        [CssField("left")]
+        public CSSNumber Left { get; set; }
+        
+        [CssField("right")]
+        public CSSNumber Right { get; set; }
+        
+        [CssField("width")]
+        public CSSNumber Width { get; set; }
+        
+        [CssField("height")]
+        public CSSNumber Height { get; set; }
 
         public CSSStyleDeclaration()
         {
@@ -45,6 +63,12 @@ namespace Quantum.CSSOM
             Cursor = new CSSCursor();
             Float = new CSSFloat();
             Font = new CSSFont();
+            Left = new CSSNumber();
+            Right = new CSSNumber();
+            Width = new CSSNumber();
+            Height = new CSSNumber();
+            Display = new CSSDisplay();
+            Position = new CSSPosition();
         }
         
         public string GetCssText()

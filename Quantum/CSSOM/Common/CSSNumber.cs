@@ -5,13 +5,20 @@ namespace Quantum.CSSOM.Common
     Px,
     Pc,
     Rem,
-    Em
+    Em,
+    Auto
   }
 
   public class CSSNumber
   {
     public CSSNumberType Type { get; set; }
     public float Value { get; set; }
+
+    public CSSNumber()
+    {
+      Value = 0;
+      Type = CSSNumberType.Auto;
+    }
 
     public static CSSNumber Parse(string text)
     {
