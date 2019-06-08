@@ -16,8 +16,43 @@ namespace Quantum.DOM
         public List<StyleSheet> StyleSheets { get; set; }
         public DocumentType DocType { get; set; }
         public Element DocumentElement => FirstChild as Element;
-        public HTMLBodyElement Body { get; set; }
-        public HTMLHeadElement Head { get; set; }
+
+        public HTMLBodyElement Body
+        {
+            get => GetBody();
+            set => SetBody(value);
+        }
+
+        public HTMLHeadElement Head
+        {
+            get
+            {
+                if (!(FirstChild is HTMLHtmlElement)) return null;
+                
+                foreach (var childNode in FirstChild.ChildNodes)
+                {
+                    if (childNode is HTMLHeadElement head)
+                    {
+                        return head;
+                    }
+                }
+
+                return null;
+            }
+            set
+            {
+                foreach (var childNode in ChildNodes)
+                {
+                    if (childNode is HTMLHeadElement head)
+                    {
+                        head = value;
+                        break;
+                    }
+                }
+                
+                AppendChild(value);
+            }
+        }
         public string Title { get; set; }
         public List<HTMLScriptElement> Scripts { get; set; }
         
@@ -26,6 +61,43 @@ namespace Quantum.DOM
             ContentType = "text/html";
             CharacterSet = Encoding.UTF8;
             DocType = new DocumentType(this);
+            StyleSheets = new List<StyleSheet>();
+        }
+
+        private HTMLBodyElement GetBody()
+        {
+            if (!(FirstChild is HTMLHtmlElement)) return null;
+            
+            foreach (var element in FirstChild.ChildNodes)
+            {
+                if (element is HTMLBodyElement bodyElement)
+                {
+                    return bodyElement;
+                }
+            }
+
+            return null;
+        }
+
+        private void SetBody(HTMLBodyElement value)
+        {
+            var body = GetBody();
+
+            if (body != null)
+            {
+                body = value;
+            }
+            else
+            {
+                if (FirstChild is HTMLHtmlElement html)
+                {
+                    html.AppendChild(value);
+                }
+                else
+                {
+                    AppendChild(value);
+                }
+            }
         }
 
         public Range CreateRange()

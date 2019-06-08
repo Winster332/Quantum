@@ -1,4 +1,5 @@
 using System;
+using FluentAssertions;
 using Quantum.Parser;
 using Xunit;
 
@@ -20,6 +21,12 @@ namespace Quantum.Tests.Parsers
             var window = Loader.LoadFromFile($"Contents/html_document.html");
             var document = window.Document;
 
+            document.Body.Should().NotBeNull();
+            document.Body.ChildElementCount.Should().BeGreaterOrEqualTo(1);
+            document.Head.Should().NotBeNull();
+            document.Head.ChildElementCount.Should().BeGreaterOrEqualTo(3);
+            
+            
             Console.WriteLine("TEST");
         }
     }
