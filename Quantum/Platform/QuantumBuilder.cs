@@ -27,7 +27,7 @@ namespace Quantum.Platform
         public void Startup(string pathToFileIndex)
         {
             var loader = new HtmlLoader();
-            Window = loader.LoadFromFile(pathToFileIndex, typeof(QuantumBuilder).Assembly);
+            Window = loader.LoadFromFile(pathToFileIndex);
 //            Window.Document.Body
             
             _renderer = new HtmlRenderer(Window);

@@ -1,7 +1,4 @@
 using System;
-using System.Linq;
-using System.Reflection;
-using Quantum.Extensions;
 using Quantum.Parser;
 using Xunit;
 
@@ -20,9 +17,8 @@ namespace Quantum.Tests.Parsers
         public void ParseFromFileTest()
         {
 //            var window = Loader.LoadFromFile($"Contents/index.html", typeof(HtmlParserTests).Assembly);
-            var window = Loader.LoadFromFile($"Contents/html_document.html", typeof(HtmlParserTests).Assembly);
+            var window = Loader.LoadFromFile($"Contents/html_document.html");
             var document = window.Document;
-//            var allNodes = tree.GraphLookup();
 
             Console.WriteLine("TEST");
         }

@@ -15,106 +15,25 @@ namespace Quantum.Parser
     public class HtmlLoader
     {
         private HtmlStateMachineProcessor _stateMachine;
-        public Window LoadSource(string source, Assembly assembly)
+        public Window LoadSource(string source)
         {
             var list = new List<string>();
-            var resolver = new HtmlElementResolver();
-            var window = new Window();
-            window.Document = new Document();
             
             _stateMachine = new HtmlStateMachineProcessor(source);
-            _stateMachine.DetectedNode += (sender, s) =>
-            {
-                var tag = $"<{s}>";
-                
-                list.Add(tag);
-                resolver.FactoryElements(tag);
-            };
-            _stateMachine.DetectedText += (sender, s) =>
-            {
-                if (s.Replace(" ", "").Replace("\n", "") == "-->")
-                {
-//                    resolver.Factory($"<{s}");
-
-                    list.Add($"<{s}");
-                }
-                else
-                {
-                    resolver.FactoryText(s);
-                    list.Add(s);
-                }
-            };
-            _stateMachine.DetectedAttr += (sender, attrs) =>
-            {
-                resolver.AttachAttributes(attrs);
-            };
-//            resolver.ElementComplated += (sender, element) =>
-//            {
-//                if (element is HTMLScriptElement)
-//                {
-//                    var scriptElement = element as HTMLScriptElement;
-//                    var src = scriptElement.GetAttribute("src");
-//
-//                    if (src != null)
-//                    {
-//                        var needType = src.Value.Replace("\"", "");
-//                        var type = assembly.GetType(needType);
-//
-//                        if (type != null)
-//                        {
-//                            var script = Activator.CreateInstance(type) as IScriptable;
-//
-//                            if (script != null)
-//                            {
-//                                script.Start();
-//                            }
-//                        }
-//                    }
-//                }
-//            };
             _stateMachine.Run();
 
-            var roots = resolver.CreateTree(resolver.Instructions).Select(x => x.ElementInstance as HTMLElement).ToList();
-            var allNodes = roots.GraphLookup();
+            var window = new Window();
+            window.Document = _stateMachine.Document;
             window.Screen = new Screen();
-            window.Document.Body = allNodes.FirstOrDefault(x => x is HTMLBodyElement) as HTMLBodyElement;
 
-            if (window.Document.Body == null)
-            {
-                window.Document.Body = new HTMLBodyElement();
-            }
-            
-            window.Document.Body.ChildNodes = roots.Select(x => x as Node).ToList();
-
-            allNodes
-                .Where(x => x is HTMLScriptElement)
-                .Where(x => x.GetAttribute("src") != null)
-                .Select(x => x.GetAttribute("src").Value.Replace("\"", ""))
-                .Select(x => assembly.GetType(x))
-                .Where(x => x != null)
-                .Select(x => Activator.CreateInstance(x) as Script)
-                .Where(x => x != null)
-                .ToList()
-                .ForEach(script =>
-                {
-                    script.Window = window;
-
-                    var scriptable = script as IScriptable;
-
-                    if (scriptable != null)
-                    {
-                        scriptable.Start();
-                    }
-                });
-            
             return window;
         }
 
-        public Window LoadFromFile(string file, Assembly assembly)
+        public Window LoadFromFile(string file)
         {
             var source = ReadFromFile(file);
             
-            return LoadSource(source, assembly);
+            return LoadSource(source);
         }
         
 //        private List<Node> CreateTree()
