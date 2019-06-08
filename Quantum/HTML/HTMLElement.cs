@@ -1,3 +1,4 @@
+using Quantum.CSSOM;
 using Quantum.DOM;
 using SkiaSharp;
 
@@ -16,6 +17,10 @@ namespace Quantum.HTML
         internal abstract void Load();
 
         internal abstract bool Draw(SKCanvas canvas);
-        
+
+        internal StyleSheet GetStyle()
+        {
+            return null;
+        }
     }
 }

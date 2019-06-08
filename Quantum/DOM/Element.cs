@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Quantum.CSSOM;
 using Quantum.DOM.Events;
 using Quantum.Extensions;
 using Quantum.HTML;
@@ -9,8 +10,13 @@ namespace Quantum.DOM
     public class Element : Node
     {
         public NamedNodeMap Attributes { get; set; }
-        public DOMTokenList ClassList { get; set; }
+        public DOMTokenList ClassList => GetClassList();
         public int ChildElementCount => Children.Count;
+
+        public CSSStyleDeclaration Style => CSSStyleDeclaration.Parse(Attributes.GetNamedItem("style").Value
+            .Replace("\"", "")
+            .Split(' ')
+            .ToDictionary(x => x.Split('=').FirstOrDefault(), x => x.Split('=').LastOrDefault()));
 
         public List<Element> Children
         {
@@ -18,7 +24,19 @@ namespace Quantum.DOM
             set => ChildNodes = value.ToList<Node>();
         }
 
-        public string ClassName { get; set; }
+        private DOMTokenList GetClassList()
+        {
+            var list = new DOMTokenList();
+            
+            foreach (var s in Attributes.GetNamedItem("class")?.Value.Split(' ').ToList())
+            {
+                list.Add(s);
+            }
+
+            return list;
+        }
+
+        public string ClassName => Attributes.GetNamedItem("class")?.Value;
         public float ClientHeight { get; set; }
         public float ClientLeft { get; set; }
         public Element OffsetParent => ParentNode as Element;
@@ -60,7 +78,7 @@ namespace Quantum.DOM
           set => _offsetHeight = value;
         }
         public Element FirstElementChild => Children.FirstOrDefault();
-        public string Id { get; set; }
+        public string Id => GetAttribute("id")?.Value;
         public string InnerHTML { get; set; }
         public Element LastElementChild => Children.LastOrDefault();
         public Element NextElementSibling => NextSibling as Element;
@@ -78,9 +96,7 @@ namespace Quantum.DOM
         public Element()
         {
             Attributes = new NamedNodeMap();
-            ClassList = new DOMTokenList();
             Children = new List<Element>();
-            ClassName = string.Empty;
             NodeType = NodeType.ElementNode;
             ClientHeight = float.NaN;
             ClientLeft = float.NaN;

@@ -57,7 +57,6 @@ namespace Quantum.HTML
                 codeBody.AppendLine("}");
                 codeBody.AppendLine("}");
 
-
                 var code = codeBody.ToString();
                 
                 throw new PlatformNotSupportedException("Dynamic compilation not support on current platfrom");

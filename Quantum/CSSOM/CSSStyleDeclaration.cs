@@ -25,6 +25,9 @@ namespace Quantum.CSSOM
         
         [CssField("border")]
         public CSSBorder Border { get; set; }
+        
+        [CssField("cursor")]
+        public CSSCursor Cursor { get; set; }
 
         public CSSStyleDeclaration()
         {
@@ -33,6 +36,7 @@ namespace Quantum.CSSOM
             Padding = new CSSPadding();
             Margin = new CSSMargin();
             Border = new CSSBorder();
+            Cursor = new CSSCursor();
         }
         
         public string GetCssText()
