@@ -31,6 +31,9 @@ namespace Quantum.CSSOM
         
         [CssField("float")]
         public CSSFloat Float { get; set; }
+        
+        [CssField("font")]
+        public CSSFont Font { get; set; }
 
         public CSSStyleDeclaration()
         {
@@ -41,6 +44,7 @@ namespace Quantum.CSSOM
             Border = new CSSBorder();
             Cursor = new CSSCursor();
             Float = new CSSFloat();
+            Font = new CSSFont();
         }
         
         public string GetCssText()
