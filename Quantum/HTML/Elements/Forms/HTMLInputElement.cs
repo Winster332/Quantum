@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Quantum.DOM;
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.Forms
 {
     [HtmlName("input")]
     public class HTMLInputElement : HTMLElement

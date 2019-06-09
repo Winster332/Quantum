@@ -1,15 +1,11 @@
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.EmbeddedTextSemantics
 {
-    [HtmlName("pre")]
-    public class HTMLPreElement : HTMLElement
+    [HtmlName("quote")]
+    public class HTMLQuoteElement : HTMLElement
     {
-        public HTMLPreElement()
-        {
-            Init("PRE");
-        }
-
+        public string Cite { get; set; }
         internal override void Load()
         {
         }

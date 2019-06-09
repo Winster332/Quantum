@@ -7,6 +7,8 @@ using Quantum.DOM.Events;
 using Quantum.Extensions;
 using Quantum.HTML;
 using Quantum.HTML.Elements;
+using Quantum.HTML.Elements.Metadata;
+using Quantum.HTML.Elements.Scripting;
 
 namespace Quantum.DOM
 {

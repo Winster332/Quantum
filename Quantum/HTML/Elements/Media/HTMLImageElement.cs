@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.Media
 {
     [HtmlName("img")]
     public class HTMLImageElement : HTMLElement

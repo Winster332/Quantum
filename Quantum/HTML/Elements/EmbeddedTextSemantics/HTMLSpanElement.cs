@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.EmbeddedTextSemantics
 {
     [HtmlName("span")]
     public class HTMLSpanElement : HTMLElement

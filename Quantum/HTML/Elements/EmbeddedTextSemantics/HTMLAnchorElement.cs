@@ -1,6 +1,6 @@
 using Quantum.DOM;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.EmbeddedTextSemantics
 {
     [HtmlName("a")]
     public class HTMLAnchorElement : HTMLHyperlinkElementUtils

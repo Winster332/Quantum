@@ -5,6 +5,10 @@ using System.Reflection;
 using Quantum.DOM;
 using Quantum.HTML;
 using Quantum.HTML.Elements;
+using Quantum.HTML.Elements.EmbeddedTextSemantics;
+using Quantum.HTML.Elements.Forms;
+using Quantum.HTML.Elements.Metadata;
+using Quantum.HTML.Elements.Scripting;
 using Quantum.Parser.Common;
 
 namespace Quantum.Parser.HTML

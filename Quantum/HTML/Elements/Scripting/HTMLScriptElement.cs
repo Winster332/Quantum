@@ -7,7 +7,7 @@ using System.Text;
 using Microsoft.CSharp;
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.Scripting
 {
     [HtmlName("script")]
     public class HTMLScriptElement : HTMLElement

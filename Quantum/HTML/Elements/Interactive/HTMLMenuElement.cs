@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.Interactive
 {
     [HtmlName("menu")]
     public class HTMLMenuElement : HTMLElement

@@ -1,4 +1,5 @@
 using Quantum.DOM;
+using Quantum.HTML.Elements.Metadata;
 using SkiaSharp;
 
 namespace Quantum.HTML.Elements

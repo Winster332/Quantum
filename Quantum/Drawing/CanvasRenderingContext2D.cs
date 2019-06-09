@@ -4,6 +4,8 @@ using Quantum.CSSOM.Common;
 using Quantum.Drawing.Canvas;
 using Quantum.HTML;
 using Quantum.HTML.Elements;
+using Quantum.HTML.Elements.Media;
+using Quantum.HTML.Elements.Scripting;
 using SkiaSharp;
 
 namespace Quantum.Drawing

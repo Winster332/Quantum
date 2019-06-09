@@ -1,5 +1,6 @@
 using Quantum.HTML;
 using Quantum.HTML.Elements;
+using Quantum.HTML.Elements.Scripting;
 using SkiaSharp;
 
 namespace Quantum.Drawing
