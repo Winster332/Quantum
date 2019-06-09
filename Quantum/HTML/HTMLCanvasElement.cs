@@ -1,6 +1,7 @@
 using System;
 using Quantum.DOM;
 using Quantum.Drawing;
+using Quantum.Drawing.Canvas;
 using SkiaSharp;
 
 namespace Quantum.HTML
@@ -66,6 +67,11 @@ namespace Quantum.HTML
             return false;
         }
 
+        public CanvasCaptureMediaStreamTrack CaptureStream()
+        {
+            return null;
+        }
+
         public RenderingContext GetContext(CanvasContextType type)
         {
             if (type == CanvasContextType.Use2D)
@@ -78,5 +84,22 @@ namespace Quantum.HTML
             
             throw new NotSupportedException();
         }
+
+        public Uri ToDataUri()
+        {
+            return null;
+        }
+
+        public Blob ToBlob()
+        {
+            return null;
+        }
+
+        public OffscreenCanvas TransferControlToOffscreen()
+        {
+            return null;
+        }
+        
+        // TODO: need added events
     }
 }
