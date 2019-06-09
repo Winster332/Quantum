@@ -1,6 +1,6 @@
 using Quantum.DOM.Events;
 
-namespace Quantum.DOM
+namespace Quantum.DOM.Events
 {
     public interface IWindowEvent
     {
