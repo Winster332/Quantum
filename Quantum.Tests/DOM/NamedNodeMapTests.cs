@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Quantum.Tests.DOM
 {
-    public class NamedNodeMapTests
+    public class NamedNodeMapTests : QuantumTest
     {
         public NamedNodeMap Attrs { get; set; }
         

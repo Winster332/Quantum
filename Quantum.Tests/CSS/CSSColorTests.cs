@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Quantum.Tests.CSS
 {
-  public class CSSColorTests
+  public class CSSColorTests : QuantumTest
   {
     [Fact]
     public void CSSColorParseHexTest()

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Quantum.Tests.Events
 {
-    public class EventTargetTest
+    public class EventTargetTest : QuantumTest
     {
         public EventTarget EventTarget;
         

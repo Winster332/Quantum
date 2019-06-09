@@ -48,6 +48,7 @@ namespace Quantum.Parser.HTML
             AddRule<HTMLButtonElement>();
             AddRule<HTMLScriptElement>();
             AddRule<HTMLCanvasElement>();
+            AddRule<HTMLAnchorElement>();
         }
 
         private void AddRule<T>() where T : class

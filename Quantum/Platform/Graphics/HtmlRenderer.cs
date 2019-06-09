@@ -19,7 +19,13 @@ namespace Quantum.Platform.Graphics
 
     public void Render(SKCanvas canvas)
     {
-      DrawTreeElements(canvas, _document.ChildNodes.OfType<Element>().ToList());
+//      DrawTreeElements(canvas, _document.ChildNodes.OfType<Element>().ToList());
+      var roots = _document.ChildNodes.OfType<HTMLElement>();
+      
+      foreach (var element in roots)
+      {
+        element.Draw(canvas);
+      }
     }
 
     private void GetBound(Element element, SKPaint paint)
@@ -130,7 +136,7 @@ namespace Quantum.Platform.Graphics
 
         if (element.Children.Count != 0)
         {
-          DrawTreeElements(canvas, element.Children);
+//          DrawTreeElements(canvas, element.Children);
 
 //          canvas.DrawLine(startLineX + 5, startLineY + 5, pos.X + 5, pos.Y - 15, new SKPaint
 //          {

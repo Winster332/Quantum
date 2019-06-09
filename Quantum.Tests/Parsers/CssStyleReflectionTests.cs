@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Quantum.Tests.Parsers
 {
-    public class CssStyleReflectionTests
+    public class CssStyleReflectionTests : QuantumTest
     {
         [Fact]
         public void ReflectionFieldBackgroundTest()

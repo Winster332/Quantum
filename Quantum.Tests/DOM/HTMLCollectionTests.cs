@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Quantum.Tests.DOM
 {
-    public class HTMLCollectionTests
+    public class HTMLCollectionTests : QuantumTest
     {
         public HTMLCollection<FakeData> Collection { get; set; }
 

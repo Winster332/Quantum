@@ -10,7 +10,7 @@ using Xunit.Abstractions;
 
 namespace Quantum.Tests.Parsers
 {
-    public class HtmlParserTests
+    public class HtmlParserTests : QuantumTest
     {
         private readonly ITestOutputHelper _testOutputHelper;
         public HtmlLoader Loader { get; set; }

@@ -2,6 +2,7 @@ using Quantum.DOM;
 
 namespace Quantum.HTML.Elements
 {
+    [HtmlName("a")]
     public class HTMLAnchorElement : HTMLHyperlinkElementUtils
     {
         public string AccessKey { get; set; }

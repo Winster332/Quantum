@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Quantum.Tests.Parsers
 {
-  public class CssParserTests
+  public class CssParserTests : QuantumTest
   {
     public CssLoader Loader { get; set; }
 
