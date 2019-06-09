@@ -1,10 +1,14 @@
 # Quantum
 
+## Supports elements
+
 | Group         | Element            | Support |
 | ------------- |:------------------:| -------:|
 |  HTML DOM     | [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)    | Yes   |
 |  HTML         | [html](https://developer.mozilla.org/en-US/docs/Web/API/HTMLHtmlElement)     | Yes   |
 |  HTML         | [body](https://developer.mozilla.org/en-US/docs/Web/API/HTMLBodyElement)     | Yes   |
+
+## How it works
 
   ```ditaa {cmd=true args=["-E"]}
   +--------+   +--------+    +--------+           +--------+   +--------+   +--------+
