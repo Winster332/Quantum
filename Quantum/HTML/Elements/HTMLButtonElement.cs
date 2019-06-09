@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
     [HtmlName("button")]
     public class HTMLButtonElement : HTMLElement

@@ -1,6 +1,7 @@
 using System;
 using Quantum.Drawing.Canvas;
 using Quantum.HTML;
+using Quantum.HTML.Elements;
 
 namespace Quantum.Drawing
 {

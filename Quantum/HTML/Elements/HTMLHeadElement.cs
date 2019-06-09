@@ -1,18 +1,17 @@
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
-    [HtmlName("quote")]
-    public class HTMLQuoteElement : HTMLElement
+    [HtmlName("head")]
+    public class HTMLHeadElement : HTMLElement
     {
-        public string Cite { get; set; }
         internal override void Load()
         {
         }
 
         internal override bool Draw(SKCanvas canvas)
         {
-          return false;
+            return false;
         }
     }
 }

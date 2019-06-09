@@ -1,14 +1,15 @@
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
-    [HtmlName("body")]
-    public class HTMLBodyElement : HTMLElement
+    [HtmlName("title")]
+    public class HTMLTitleElement : HTMLElement
     {
-        // TODO: Added event handlers
-        public HTMLBodyElement()
+        public string Text { get; set; }
+
+        public HTMLTitleElement()
         {
-            Init("BODY");
+            Init("TITLE");
         }
 
         internal override void Load()

@@ -4,7 +4,7 @@ using Quantum.DOM.Events;
 using Quantum.HTML.Events;
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
     [HtmlName("form")]
     public class HTMLFormElement : HTMLElement

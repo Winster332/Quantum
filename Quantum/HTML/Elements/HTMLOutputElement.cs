@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Quantum.DOM;
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
     [HtmlName("out")]
     public class HTMLOutputElement : HTMLElement

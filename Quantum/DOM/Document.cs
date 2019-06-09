@@ -6,6 +6,7 @@ using Quantum.CSSOM;
 using Quantum.DOM.Events;
 using Quantum.Extensions;
 using Quantum.HTML;
+using Quantum.HTML.Elements;
 
 namespace Quantum.DOM
 {

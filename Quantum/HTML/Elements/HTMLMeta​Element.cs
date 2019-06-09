@@ -1,6 +1,6 @@
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
     [HtmlName("meta")]
     public class HTMLMetaElement : HTMLElement

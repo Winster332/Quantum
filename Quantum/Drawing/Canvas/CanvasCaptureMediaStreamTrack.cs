@@ -1,5 +1,5 @@
 using Quantum.DOM.Media;
-using Quantum.HTML;
+using Quantum.HTML.Elements;
 
 namespace Quantum.Drawing.Canvas
 {

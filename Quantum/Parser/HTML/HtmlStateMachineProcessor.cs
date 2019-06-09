@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Quantum.DOM;
 using Quantum.HTML;
+using Quantum.HTML.Elements;
 using Quantum.Parser.Common;
 
 namespace Quantum.Parser.HTML

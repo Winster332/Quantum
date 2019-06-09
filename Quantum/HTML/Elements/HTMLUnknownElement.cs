@@ -1,10 +1,13 @@
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
-    [HtmlName("head")]
-    public class HTMLHeadElement : HTMLElement
+    public class HTMLUnknownElement : HTMLElement
     {
+        public HTMLUnknownElement()
+        {
+            IsNeedClose = false;
+        }
         internal override void Load()
         {
         }

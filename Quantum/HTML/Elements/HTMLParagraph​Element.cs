@@ -1,9 +1,9 @@
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
-    [HtmlName("menu")]
-    public class HTMLMenuElement : HTMLElement
+    [HtmlName("p")]
+    public class HTMLParagraphElement : HTMLElement
     {
         internal override void Load()
         {

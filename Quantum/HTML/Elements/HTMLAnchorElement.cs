@@ -1,6 +1,6 @@
 using Quantum.DOM;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
     public class HTMLAnchorElement : HTMLHyperlinkElementUtils
     {

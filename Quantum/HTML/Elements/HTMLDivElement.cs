@@ -1,13 +1,13 @@
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
-    [HtmlName("pre")]
-    public class HTMLPreElement : HTMLElement
+    [HtmlName("div")]
+    public class HTMLDivElement : HTMLElement
     {
-        public HTMLPreElement()
+        public HTMLDivElement()
         {
-            Init("PRE");
+            Init("DIV");
         }
 
         internal override void Load()

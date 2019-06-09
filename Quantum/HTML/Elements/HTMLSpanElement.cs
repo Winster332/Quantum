@@ -1,13 +1,13 @@
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
-    [HtmlName("html")]
-    public class HTMLHtmlElement : HTMLElement
+    [HtmlName("span")]
+    public class HTMLSpanElement : HTMLElement
     {
-        public HTMLHtmlElement()
+        public HTMLSpanElement()
         {
-            Init("HTML");
+            Init("SPAN");
         }
 
         internal override void Load()

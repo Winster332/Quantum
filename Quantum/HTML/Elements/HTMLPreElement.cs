@@ -1,15 +1,13 @@
 using SkiaSharp;
 
-namespace Quantum.HTML
+namespace Quantum.HTML.Elements
 {
-    [HtmlName("title")]
-    public class HTMLTitleElement : HTMLElement
+    [HtmlName("pre")]
+    public class HTMLPreElement : HTMLElement
     {
-        public string Text { get; set; }
-
-        public HTMLTitleElement()
+        public HTMLPreElement()
         {
-            Init("TITLE");
+            Init("PRE");
         }
 
         internal override void Load()
