@@ -16,11 +16,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Contents\Css" />
+      <Folder Include="CSS" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Contents\index.html">
+      <None Update="HTML\index.html">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

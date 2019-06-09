@@ -6,6 +6,7 @@ using SkiaSharp;
 
 namespace Quantum.HTML.Elements
 {
+    [HtmlName("canvas")]
     public class HTMLCanvasElement : HTMLElement
     {
         private RenderingContext _context;
@@ -60,7 +61,7 @@ namespace Quantum.HTML.Elements
         {
             if (_context != null)
             {
-                _context.Canvas = canvas;
+                _context.sk = canvas;
                 _context.Render();
             }
 
@@ -72,17 +73,14 @@ namespace Quantum.HTML.Elements
             return null;
         }
 
-        public RenderingContext GetContext(CanvasContextType type)
+        public CanvasRenderingContext2D GetContext2d()
         {
-            if (type == CanvasContextType.Use2D)
+          _context =
+            new CanvasRenderingContext2D
             {
-                return new CanvasRenderingContext2D
-                {
-                    HTMLCanvas = this
-                };
-            }
-            
-            throw new NotSupportedException();
+              HTMLCanvas = this
+            };
+          return _context as CanvasRenderingContext2D;
         }
 
         public Uri ToDataUri()

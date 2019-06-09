@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Quantum.Parser.CSS;
+using SkiaSharp;
 
 namespace Quantum.CSSOM.Common
 {
@@ -113,6 +114,11 @@ namespace Quantum.CSSOM.Common
     public override string ToString()
     {
       return $"[{R}, {G}, {B}, {A}]";
+    }
+
+    internal SKColor ToSkia()
+    {
+      return new SKColor(R, G, B, A);
     }
   }
 }

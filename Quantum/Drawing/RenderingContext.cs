@@ -7,7 +7,7 @@ namespace Quantum.Drawing
     public abstract class RenderingContext
     {
         internal HTMLCanvasElement HTMLCanvas { get; set; }
-        internal SKCanvas Canvas;
+        internal SKCanvas sk;
         internal abstract void Render();
     }
 }

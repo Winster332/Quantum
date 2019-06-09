@@ -173,6 +173,8 @@ namespace Quantum.HTML.Elements
                 if (type == null) return;
 
                 var instanceScript = Activator.CreateInstance(type) as IScriptable;
+                var script = instanceScript as Script;
+                script.Document = OwnerDocument;
 
                 if (instanceScript == null) return;
 

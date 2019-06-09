@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Quantum.DOM;
 using Quantum.HTML;
 using SkiaSharp;
@@ -18,7 +19,7 @@ namespace Quantum.Platform.Graphics
 
     public void Render(SKCanvas canvas)
     {
-      DrawTreeElements(canvas, _document.Body.Children);
+      DrawTreeElements(canvas, _document.ChildNodes.OfType<Element>().ToList());
     }
 
     private void GetBound(Element element, SKPaint paint)

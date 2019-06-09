@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Quantum.DOM;
 using Quantum.Parser;
@@ -75,7 +76,7 @@ namespace Quantum.Platform
                 X = 300, 
                 Y = 100
             };
-            DrawTreeElements(canvas, Window.Document.Body.Children, ref pos);
+            DrawTreeElements(canvas, Window.Document.ChildNodes.OfType<Element>().ToList(), ref pos);
             
             _renderer.Render(canvas);
         }

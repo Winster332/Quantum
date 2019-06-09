@@ -1,12 +1,17 @@
 using System;
+using System.Collections.Generic;
+using Quantum.CSSOM.Common;
 using Quantum.Drawing.Canvas;
 using Quantum.HTML;
 using Quantum.HTML.Elements;
+using SkiaSharp;
 
 namespace Quantum.Drawing
 {
     public class CanvasRenderingContext2D : RenderingContext
     {
+      private List<Action<SKCanvas>> _actions;
+      
         #region Line styles
         
         public float LineWidth { get; set; }
@@ -40,8 +45,8 @@ namespace Quantum.Drawing
         
         #region Fill and stroke styles
         
-        public string FillStyle { get; set; }
-        public string StrokeStyle { get; set; }
+        public CSSColor FillStyle { get; set; }
+        public CSSColor StrokeStyle { get; set; }
         
         #endregion
 
@@ -188,18 +193,23 @@ namespace Quantum.Drawing
             TextAlign = CanvasTextAlignType.Start;
             TextBaseline = CanvasTextBaselineType.Alphabetic;
             Direction = CanvasDirectionType.Inherit;
-            FillStyle = "#000";
-            StrokeStyle = "#000";
+            FillStyle = CSSColor.Black;
+            StrokeStyle = CSSColor.Black;
             CurrentTransform = new SVGMatrix();
             GlobalAlpha = 1.0f;
             GlobalCompositeOperation = CanvasGlobalCompositeOperationType.SourceOver;
             ImageSmoothingEnabled = true;
             ImageSmoothingQuality = CanvasImageSmoothingQualityType.Medium;
             Filter = CanvasFilter.Empty;
+            _actions = new List<Action<SKCanvas>>();
         }
         
         internal override void Render()
         {
+          foreach (var action in _actions)
+          {
+            action?.Invoke(sk);
+          }
         }
         
         #region The canvas state
@@ -273,11 +283,22 @@ namespace Quantum.Drawing
         public void ClearRect(float x, float y, float width, float height)
         {
         }
-        
+
         public void FillRect(float x, float y, float width, float height)
         {
+          var color = FillStyle.ToSkia();
+          
+          _actions.Add(canvas =>
+          {
+            canvas.DrawRect(x, y, width, height, new SKPaint
+            {
+              IsAntialias = true,
+              Color = color,
+              Style = SKPaintStyle.Fill
+            });
+          });
         }
-        
+
         public void StrokeRect(float x, float y, float width, float height)
         {
         }
