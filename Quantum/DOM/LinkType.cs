@@ -1,0 +1,33 @@
+namespace Quantum.DOM
+{
+    public enum LinkType
+    {
+        Alternate,
+        Author,
+        Bookmark,
+        Canonical,
+        DnsPrefetch,
+        External,
+        Help,
+        Icon,
+        Import,
+        License,
+        Manifest,
+        Modulepreload,
+        Next,
+        Nofollow,
+        Noopener,
+        Noreferrer,
+        Opener,
+        Pingback,
+        Preconnect,
+        Prefetch,
+        Preload,
+        Prerender,
+        Prev,
+        Search,
+        Shortlink,
+        Stylesheet,
+        Tag
+    }
+}
