@@ -11,6 +11,7 @@ namespace Quantum.DOM
 {
     public class Document : Node
     {
+        public Storage LocalStorage { get; set; }
         public string ContentType { get; set; }
         public Encoding CharacterSet { get; set; }
         public List<StyleSheet> StyleSheets { get; set; }
@@ -63,6 +64,7 @@ namespace Quantum.DOM
             DocType = new DocumentType(this);
             StyleSheets = new List<StyleSheet>();
             Scripts = new List<HTMLScriptElement>();
+            LocalStorage = new Storage();
         }
 
         private HTMLBodyElement GetBody()
