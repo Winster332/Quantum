@@ -7,7 +7,9 @@ Drawing graphics occurs by Skiasharp/OpenL. This allows you to increase the spee
 This is not Electron, and not a new browser. This technology allows you to use HTML/CSS rate for your needs.
 WebAPI repeats API browsers, and you should not feel a significant difference in C# and JS using Quantum.
 
-### Why precisely Kant?
+![N|Solid](https://github.com/Winster332/Quantum/blob/master/Images/logo.png)
+
+### Why precisely Quantum?
 Because the technologies of VPF, VF, Android, they do not simultaneously provide flexibility and cross-platform. For a quantum you do not have to learn something new. If you know the basics of CTML, that will be enough.
 
 ## Supports elements
