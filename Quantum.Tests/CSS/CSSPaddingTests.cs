@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Quantum.Tests.CSS
 {
-    public class CSSPaddingTests
+    public class CSSPaddingTests : QuantumTest
     {
         [Fact]
         public void CSSPaddingParseFullArgs()

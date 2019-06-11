@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Quantum.DOM;
+using Quantum.HTML.Elements.Forms;
 using SkiaSharp;
 
 namespace Quantum.HTML.Elements

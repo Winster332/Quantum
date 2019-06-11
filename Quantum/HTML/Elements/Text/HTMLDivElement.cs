@@ -1,11 +1,15 @@
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.Text
 {
-    [HtmlName("quote")]
-    public class HTMLQuoteElement : HTMLElement
+    [HtmlName("div")]
+    public class HTMLDivElement : HTMLElement
     {
-        public string Cite { get; set; }
+        public HTMLDivElement()
+        {
+            Init("DIV");
+        }
+
         internal override void Load()
         {
         }

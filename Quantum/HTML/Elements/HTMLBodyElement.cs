@@ -17,7 +17,9 @@ namespace Quantum.HTML.Elements
 
         internal override bool Draw(SKCanvas canvas)
         {
-          return false;
+            DrawChildren(canvas);
+            
+            return false;
         }
     }
 }

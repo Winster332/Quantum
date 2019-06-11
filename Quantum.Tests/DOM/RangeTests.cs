@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Quantum.Tests.DOM
 {
-    public class RangeTests
+    public class RangeTests : QuantumTest
     {
         public Document Document;
         public Node RootNode { get; set; }

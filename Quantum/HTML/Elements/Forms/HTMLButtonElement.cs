@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Quantum.HTML.Elements.Interactive;
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.Forms
 {
     [HtmlName("button")]
     public class HTMLButtonElement : HTMLElement
@@ -31,12 +32,14 @@ namespace Quantum.HTML.Elements
 
         internal override bool Draw(SKCanvas canvas)
         {
-          var x = 50;
-          var y = 50;
-          var width = 60;
-          var height = 25;
-          
-          canvas.DrawRoundRect(x, x,width, height, 2, 2, new SKPaint
+          var x = OffsetLeft - 5;
+          var y = OffsetTop - 5;
+          var width = OffsetWidth + 10;
+          var height = OffsetHeight + 10;
+
+          canvas.Save();
+          canvas.Translate(x, y);
+          canvas.DrawRoundRect(0, 0,width, height, 2, 2, new SKPaint
           {
             IsAntialias = true,
             Shader = SKShader.CreateLinearGradient(
@@ -50,12 +53,17 @@ namespace Quantum.HTML.Elements
               new float[] { 0, 1 },
               SKShaderTileMode.Repeat)
           });
-          canvas.DrawRoundRect(x, x,width, height, 1, 1, new SKPaint
+          canvas.DrawRoundRect(0, 0,width, height, 1, 1, new SKPaint
           {
             IsAntialias = true,
             Style = SKPaintStyle.Stroke,
             Color = new SKColor(150, 150, 150)
           });
+          
+          canvas.Restore();
+          
+          DrawChildren(canvas);
+          
           return false;
         }
     }

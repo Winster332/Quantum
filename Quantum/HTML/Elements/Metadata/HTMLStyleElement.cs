@@ -3,7 +3,7 @@ using Quantum.CSSOM;
 using Quantum.Parser;
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.Metadata
 {
     [HtmlName("style")]
     public class HTMLStyleElement : HTMLElement, ILinkStyle

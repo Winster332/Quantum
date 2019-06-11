@@ -19,4 +19,8 @@
       <Folder Include="WebAPI" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="HTML\Elements\Section" />
+    </ItemGroup>
+
 </Project>

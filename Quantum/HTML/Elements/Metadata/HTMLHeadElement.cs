@@ -1,9 +1,9 @@
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.Metadata
 {
-    [HtmlName("p")]
-    public class HTMLParagraphElement : HTMLElement
+    [HtmlName("head")]
+    public class HTMLHeadElement : HTMLElement
     {
         internal override void Load()
         {

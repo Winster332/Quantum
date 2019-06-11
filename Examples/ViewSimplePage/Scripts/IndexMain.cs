@@ -1,6 +1,7 @@
 using Quantum.CSSOM.Common;
 using Quantum.HTML;
 using Quantum.HTML.Elements;
+using Quantum.HTML.Elements.Scripting;
 
 namespace ViewSimplePage.Contents.Scripts
 {

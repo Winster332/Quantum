@@ -4,7 +4,7 @@ using Quantum.Drawing;
 using Quantum.Drawing.Canvas;
 using SkiaSharp;
 
-namespace Quantum.HTML.Elements
+namespace Quantum.HTML.Elements.Scripting
 {
     [HtmlName("canvas")]
     public class HTMLCanvasElement : HTMLElement

@@ -4,6 +4,8 @@ using Quantum.CSSOM;
 using Quantum.DOM.Events;
 using Quantum.Extensions;
 using Quantum.HTML;
+using Quantum.HTML.Elements;
+using SkiaSharp;
 
 namespace Quantum.DOM
 {
@@ -63,6 +65,15 @@ namespace Quantum.DOM
           get
           {
             var width = 0.0f;
+            if (this is HTMLTextElement)
+            {
+                var bounds = new SKRect();
+                var e = this as HTMLTextElement;
+                e.TextStyle.MeasureText(TextContent, ref bounds);
+
+                width += bounds.Width;
+            }
+
             Children.ForEach(child => width += child.OffsetWidth);
             return _offsetWidth + width;
           }
@@ -73,10 +84,33 @@ namespace Quantum.DOM
         {
           get
           {
-            return _offsetHeight;
+            var height = 0.0f;
+            if (this is HTMLTextElement)
+            {
+                var bounds = new SKRect();
+                var e = this as HTMLTextElement;
+                e.TextStyle.MeasureText(TextContent, ref bounds);
+
+                height += bounds.Height;
+            }
+
+            Children.ForEach(child => height += child.OffsetHeight);
+            return _offsetHeight + height;
           } 
           set => _offsetHeight = value;
         }
+
+        private void ExtractWidth(Element e, ref float value)
+        {
+            var width = e.OffsetWidth;
+            value += width;
+
+            foreach (var element in e.Children)
+            {
+                element.ExtractWidth(element, ref value);
+            }
+        }
+        
         public Element FirstElementChild => Children.FirstOrDefault();
         public string Id => GetAttribute("id")?.Value;
         public string InnerHTML { get; set; }
