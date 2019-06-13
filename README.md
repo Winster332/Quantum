@@ -22,6 +22,9 @@ Quantum provides cross-platform bindings for:
 
 The [API Documentation](https://doc/) is
 available on the web to browse.
+
+<br/>
+
 ![N|Solid](https://github.com/Winster332/Quantum/blob/master/Images/logo.png)
 
 ### Why precisely Quantum?
