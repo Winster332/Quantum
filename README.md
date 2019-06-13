@@ -22,7 +22,9 @@ Because the technologies of VPF, VF, Android, they do not simultaneously provide
 
 ## How it works
 
-### Quantum html/css
+### Stage 1. Loading
+
+At stage 1, the document loading html. Loading styles and scripts is based on the html file, or separately, by means of a bindig. DOM is built tree.
 
   ```ditaa {cmd=true args=["-E"]}
                                 +---------+
@@ -34,15 +36,33 @@ Because the technologies of VPF, VF, Android, they do not simultaneously provide
   |  HTML   |---►| Parser  |---►| Content |---+                ▲
   +---------+    +---------+    +---------+   |                |
                                      |        ▼                ▼        
-       +-----------------------------+   +---------+    +-------------+    +----------+    +----------+
-       |                                 | Binder  |---►| Frame tree  |---►| Painting |---►| Display  |
-       |                                 +---------+    +-------------+    +----------+    +----------+
+       +-----------------------------+   +---------+    +-------------+    +----------+
+       |                                 | Binder  |---►| Frame tree  |---►| Painting |
+       |                                 +---------+    +-------------+    +----------+
        ▼                                      ▲
   +----+----+    +---------+    +---------+   |
   |  CSS    |---►| Parser  |---►|  Rules  |---+
   +---------+    +---------+    +---------+ 
  ```
+
+ ### Stage 2. Painting
+For rendering, [OpenGL](https://github.com/opentk/opentk) and [SkiaSharp](https://github.com/mono/SkiaSharp) are used. They allow you to draw elements through GPU if possible. The collected data from stage 1 is accumulated and transferred to stage 2.
+Built render tree. Transforms styles for [SkiaSharp](https://github.com/mono/SkiaSharp). Build lineup. The tree with the elements of the arrangement is transmitted to [OpenGL](https://github.com/opentk/opentk) where the final output to the screen takes place.
  
+  ```ditaa {cmd=true args=["-E"]}
+              +--------------+
+              |  Skia paint  |---+
+              +--------------+   |
+                     ▲           ▼
+  +--------------+   |     +------------+    +----------+
+  |   Painting   |---+     | Transform  |---►| Display  |
+  +--------------+   |     +------------+    +----------+
+                     ▼           ▲
+              +--------------+   |
+              | Сomposition  |---+
+              +--------------+
+  ```
+
  ### Other
 
   ```ditaa {cmd=true args=["-E"]}
@@ -66,3 +86,7 @@ Because the technologies of VPF, VF, Android, they do not simultaneously provide
 ### Links
 
 [MDN](https://developer.mozilla.org/en-US/)
+<br/>
+[OpenTK](https://github.com/opentk/opentk)
+<br/>
+[SkiaSharp](https://github.com/mono/SkiaSharp)
