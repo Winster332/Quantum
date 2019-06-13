@@ -7,6 +7,21 @@ Drawing graphics occurs by Skiasharp/OpenL. This allows you to increase the spee
 This is not Electron, and not a new browser. This technology allows you to use HTML/CSS rate for your needs.
 WebAPI repeats API browsers, and you should not feel a significant difference in C# and JS using Quantum.
 
+Quantum provides cross-platform bindings for:
+
+ - .NET Standard 1.3
+ - .NET Core
+ - Tizen
+ - Xamarin.Android
+ - Xamarin.iOS
+ - Xamarin.tvOS
+ - Xamarin.watchOS
+ - Xamarin.Mac
+ - Windows Classic Desktop (Windows.Forms / WPF)
+ - Windows UWP (Desktop / Mobile / Xbox / HoloLens)
+
+The [API Documentation](https://doc/) is
+available on the web to browse.
 ![N|Solid](https://github.com/Winster332/Quantum/blob/master/Images/logo.png)
 
 ### Why precisely Quantum?
@@ -63,6 +78,10 @@ Built render tree. Transforms styles for [SkiaSharp](https://github.com/mono/Ski
               +--------------+
   ```
 
+ ### Audio cross-platform
+ 
+For cross-platform audio playback, a special module is used that uses [AFPlay/AFInfo](https://github.com/Winster332/AFPlay) for MacOS, [NAudio](https://github.com/naudio/NAudio) for Windows, and must be implemented for Android and Linux.
+
  ### Other
 
   ```ditaa {cmd=true args=["-E"]}
@@ -90,3 +109,5 @@ Built render tree. Transforms styles for [SkiaSharp](https://github.com/mono/Ski
 [OpenTK](https://github.com/opentk/opentk)
 <br/>
 [SkiaSharp](https://github.com/mono/SkiaSharp)
+<br/>
+[NAudio](https://github.com/naudio/NAudio)
