@@ -37,6 +37,16 @@ Because the technologies of VPF, VF, Android, they do not simultaneously provide
 |  HTML DOM     | [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)    | Yes   |
 |  HTML         | [html](https://developer.mozilla.org/en-US/docs/Web/API/HTMLHtmlElement)     | Yes   |
 |  HTML         | [body](https://developer.mozilla.org/en-US/docs/Web/API/HTMLBodyElement)     | Yes   |
+|  HTML         | [HTMLFormElement](https://developer.mozilla.org/ru/docs/Web/API/HTMLFormElement)     | Yes   |
+|  HTML         | [HTMLCanvasElement](https://developer.mozilla.org/ru/docs/Web/API/HTMLCanvasElement)     | Yes   |
+|  HTML         | [HTMLAnchorElement](https://developer.mozilla.org/ru/docs/Web/API/HTMLAnchorElement)     | Yes   |
+|  HTML         | [HTMLAudioElement](https://developer.mozilla.org/ru/docs/Web/API/HTMLAudioElement)     | No   |
+|  HTML         | [HTMLBRElement](https://developer.mozilla.org/ru/docs/Web/API/HTMLBRElement)     | No   |
+|  HTML         | [HTMLButtonElement](https://developer.mozilla.org/ru/docs/Web/API/HTMLButtonElement)     | Yes   |
+|  HTML         | [HTMLDivElement](https://developer.mozilla.org/ru/docs/Web/API/HTMLDivElement)     | Yes   |
+|  HTML         | [HTMLImageElement](https://developer.mozilla.org/ru/docs/Web/API/HTMLImageElement)     | No   |
+|  HTML         | [HTMLInputElement](https://developer.mozilla.org/ru/docs/Web/API/HTMLInputElement)     | Yes   |
+|  HTML         | [HTMLHeadElement](https://developer.mozilla.org/ru/docs/Web/API/HTMLHeadElement)     | Yes   |
 
 ## How it works
 
@@ -84,6 +94,10 @@ Built render tree. Transforms styles for [SkiaSharp](https://github.com/mono/Ski
  ### Audio cross-platform
  
 For cross-platform audio playback, a special module is used that uses [AFPlay/AFInfo](https://github.com/Winster332/AFPlay) for MacOS, [NAudio](https://github.com/naudio/NAudio) for Windows, and must be implemented for Android and Linux.
+
+### Language
+
+You can choose the language you want to use. 
 
  ### Other
 
