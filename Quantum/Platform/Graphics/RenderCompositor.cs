@@ -1,6 +1,7 @@
 namespace Quantum.Platform.Graphics
 {
-  public class HtmlCompositor
+  public class RenderCompositor
   {
+    
   }
 }

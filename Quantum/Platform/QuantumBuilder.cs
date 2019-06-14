@@ -70,15 +70,41 @@ namespace Quantum.Platform
             var canvas = e.Surface.Canvas;
             
             canvas.Clear(ClearColor);
-
-            var pos = new Position
-            {
-                X = 300, 
-                Y = 100
-            };
-            DrawTreeElements(canvas, Window.Document.ChildNodes.OfType<Element>().ToList(), ref pos);
             
-            _renderer.Render(canvas);
+            var RectangleStyleFillShadowColor = new SKColor(255, 0, 0, 255);
+          
+            var RectangleStyleFillShadow = SKImageFilter.CreateDropShadow(0f, 0f, 20f,20f, 
+                RectangleStyleFillShadowColor, SKDropShadowImageFilterShadowMode.DrawShadowOnly, null, null);
+      
+            var RectangleStyleFillColor = new SKColor(255, 255, 255, 255);
+            
+
+            canvas.DrawRect(100, 100, 800, 800, new SKPaint
+            {
+                Color = new SKColor(202,157,93),
+                Style = SKPaintStyle.Fill,
+//                Color = RectangleStyleFillColor,
+                BlendMode = SKBlendMode.SrcOver,
+                IsAntialias = true,
+                ImageFilter = SKImageFilter.CreateBlur(5, 5)
+//                ImageFilter = RectangleStyleFillShadow
+            });
+            
+            canvas.DrawCircle(200, 200, 50, new SKPaint
+            {
+                IsAntialias = true,
+                Color = new SKColor(115,61,19),
+                ImageFilter = SKImageFilter.CreateBlur(15, 15)
+            });
+            
+//            var pos = new Position
+//            {
+//                X = 300, 
+//                Y = 100
+//            };
+//            DrawTreeElements(canvas, Window.Document.ChildNodes.OfType<Element>().ToList(), ref pos);
+//            
+//            _renderer.Render(canvas);
         }
 
         private void DrawTreeElements(SKCanvas canvas, List<Element> elements, ref Position pos)
