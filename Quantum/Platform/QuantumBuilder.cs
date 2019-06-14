@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Quantum.DOM;
 using Quantum.Parser;
+using Quantum.Platform.Audio;
 using Quantum.Platform.Core;
 using Quantum.Platform.Graphics;
 using SkiaSharp;
@@ -15,9 +17,10 @@ namespace Quantum.Platform
     {
         private DesktopWindow _window;
         private QuantumBuilderOptions _options;
+        private HtmlRenderer _renderer;
         public SKColor ClearColor { get; set; }
         public Window Window { get; set; }
-        private HtmlRenderer _renderer;
+        public ISoundPlayer SoundPlayer { get; set; }
 
         private QuantumBuilder(QuantumBuilderOptions options)
         {
@@ -29,10 +32,18 @@ namespace Quantum.Platform
         {
             var loader = new HtmlLoader();
             Window = loader.LoadFromFile(pathToFileIndex);
-//            Window.Document.Body
-            
             _renderer = new HtmlRenderer(Window);
-            
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+              SoundPlayer = new WindowsSoundPlayer();
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ||
+                     RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+              // AFPlayer
+            }
+
             RunWindow();
         }
         
