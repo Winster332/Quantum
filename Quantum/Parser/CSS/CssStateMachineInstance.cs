@@ -23,7 +23,7 @@ namespace Quantum.Parser.CSS
       var rule = new CSSRule();
       rule.Type = CSSRuleType.StyleRule;
       rule.ParentStyleSheet = StyleSheet;
-      rule.SelectorText = CurrentSelector;
+      rule.SelectorText = CurrentSelector.Replace("\r", "");
       rule.Style = CSSStyleDeclaration.Parse(Fields);
 
       StyleSheet.CssRules.Add(rule);

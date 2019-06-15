@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace Quantum.CSSOM.Common.BoxModel
@@ -9,7 +10,7 @@ namespace Quantum.CSSOM.Common.BoxModel
     Double
   }
   
-  public class CSSBorder
+  public class CSSBorder : ICloneable
   {
     [CssField("left")]
     public CSSNumber Left { get; set; }
@@ -80,6 +81,21 @@ namespace Quantum.CSSOM.Common.BoxModel
       }
 
       return border;
+    }
+
+    public object Clone()
+    {
+      return new CSSBorder
+      {
+        Left = Left.Clone() as CSSNumber,
+        Right = Right.Clone() as CSSNumber,
+        Top = Top.Clone() as CSSNumber,
+        Bottom = Bottom.Clone() as CSSNumber,
+        
+        Type = Type,
+        Radius = Radius.Clone() as CSSNumber,
+        Color = Color.Clone() as CSSColor
+      };
     }
   }
 }

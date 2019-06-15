@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using FluentAssertions;
+using Quantum.CSSOM.Common;
 using Quantum.Parser;
 using Quantum.Platform.Graphics;
 using Xunit;
@@ -131,6 +132,32 @@ namespace Quantum.Tests.Renderer
             {
               renderLayout.CssRule.Should().BeEquivalentTo(baseDiv.CssRule);
             }
+        }
+        
+        [Fact]
+        public void BuildRender_InheritStylesWithParent_RenderLayout()
+        {
+            var _renderTree = new RenderTree();
+            var loader = new HtmlLoader();
+            var window = loader.LoadFromFile("Contents/test_html_inherit_styles_with_parent.html");
+            
+            _renderTree.Build(window);
+            var root = _renderTree.LayoutRoot;
+            var html = root.Layouts.FirstOrDefault();
+            var body = html.Layouts.LastOrDefault();
+            var mainDiv = body.Layouts.FirstOrDefault();
+            mainDiv.CssRule.Should().NotBeNull();
+
+            mainDiv.Layouts.FirstOrDefault().CssRule.SelectorText.Should().BeEquivalentTo(".oneLevel");
+            var twoLevelDiv = mainDiv.Layouts.LastOrDefault();
+            twoLevelDiv.CssRule.SelectorText.Should().BeEquivalentTo(".twoLevel");
+            var twoLevelA = twoLevelDiv.Layouts.FirstOrDefault();
+            twoLevelA.CssRule.SelectorText.Should().BeEquivalentTo(".twoLevel");
+
+            var twoStyle = twoLevelA.CssRule.Style;
+            var oneStyle = mainDiv.CssRule.Style;
+            twoStyle.Color.Should().BeEquivalentTo(oneStyle.Color);
+            twoStyle.Background.Color.Should().BeEquivalentTo(new CSSColor(255, 204, 85, 255));
         }
     }
 }

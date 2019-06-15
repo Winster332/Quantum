@@ -31,6 +31,13 @@ namespace Quantum.Platform.Graphics
 
         public CSSRule MerageStyleWithParent()
         {
+          if (Parent != null && Parent.CssRule != null)
+          {
+            var parentRule = Parent.CssRule.Clone() as CSSRule;
+
+            // TODO: Need merge
+          }
+
           return Parent?.CssRule;
         }
     }

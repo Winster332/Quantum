@@ -5,7 +5,7 @@ using SkiaSharp;
 
 namespace Quantum.CSSOM.Common
 {
-  public class CSSColor
+  public class CSSColor : ICloneable
   {
     private byte[] _bytes;
 
@@ -114,6 +114,18 @@ namespace Quantum.CSSOM.Common
     public override string ToString()
     {
       return $"[{R}, {G}, {B}, {A}]";
+    }
+
+    public object Clone()
+    {
+      var color = new CSSColor
+      {
+        A = A,
+        R = R,
+        G = G,
+        B = B
+      };
+      return color;
     }
 
     internal SKColor ToSkia()

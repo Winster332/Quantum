@@ -9,7 +9,7 @@ using Quantum.Extensions;
 
 namespace Quantum.CSSOM
 {
-    public class CSSStyleDeclaration
+    public class CSSStyleDeclaration : ICloneable
     {
         [CssField("position")]
         public CSSPosition Position { get; set; }
@@ -85,7 +85,7 @@ namespace Quantum.CSSOM
             
             foreach (var keyValuePair in fields)
             {
-                var fieldName = keyValuePair.Key;
+                var fieldName = keyValuePair.Key.Replace("\r", "");
                 var value = keyValuePair.Value;
 
                 if (styleFields.ContainsKey(fieldName))
@@ -113,7 +113,21 @@ namespace Quantum.CSSOM
 
             return style;
         }
-        
 
+
+        public object Clone()
+        {
+          var style = new CSSStyleDeclaration
+          {
+            Color = this.Color.Clone() as CSSColor,
+            Background = Background.Clone() as CSSBackground,
+            Padding = Padding.Clone() as CSSPadding,
+            Margin = Margin.Clone() as CSSMargin,
+            Border = Border.Clone() as CSSBorder,
+            Cursor = Cursor.Clone() as CSSCursor,
+          };
+          
+          return style;
+        }
     }
 }

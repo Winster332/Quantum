@@ -1,8 +1,9 @@
+using System;
 using Quantum.CSSOM.Common;
 
 namespace Quantum.CSSOM.Properties
 {
-  public class CSSBackground
+  public class CSSBackground : ICloneable
   {
     [CssField("color")]
     public CSSColor Color { get; set; }
@@ -15,6 +16,14 @@ namespace Quantum.CSSOM.Properties
       };
 
       return background;
+    }
+
+    public object Clone()
+    {
+      return new CSSBackground
+      {
+        Color = Color.Clone() as CSSColor
+      };
     }
   }
 }

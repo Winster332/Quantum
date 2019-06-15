@@ -1,8 +1,9 @@
+using System;
 using System.Linq;
 
 namespace Quantum.CSSOM.Common.BoxModel
 {
-  public class CSSPadding
+  public class CSSPadding : ICloneable
   {
     [CssField("left")]
     public CSSNumber Left { get; set; }
@@ -60,6 +61,17 @@ namespace Quantum.CSSOM.Common.BoxModel
       }
 
       return padding;
+    }
+
+    public object Clone()
+    {
+      return new CSSPadding
+      {
+        Left = Left.Clone() as CSSNumber,
+        Right = Right.Clone() as CSSNumber,
+        Top = Top.Clone() as CSSNumber,
+        Bottom = Bottom.Clone() as CSSNumber
+      };
     }
   }
 }

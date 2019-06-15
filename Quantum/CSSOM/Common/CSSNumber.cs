@@ -1,3 +1,5 @@
+using System;
+
 namespace Quantum.CSSOM.Common
 {
   public enum CSSNumberType
@@ -9,7 +11,7 @@ namespace Quantum.CSSOM.Common
     Auto
   }
 
-  public class CSSNumber
+  public class CSSNumber : ICloneable
   {
     public CSSNumberType Type { get; set; }
     public float Value { get; set; }
@@ -72,6 +74,15 @@ namespace Quantum.CSSOM.Common
       {
         Type = type,
         Value = value
+      };
+    }
+
+    public object Clone()
+    {
+      return new CSSNumber
+      {
+        Value = Value,
+        Type = Type
       };
     }
   }
