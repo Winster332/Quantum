@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Quantum.HTML;
 
-namespace Quantum.Platform.Inputs
+namespace Quantum.Platform.Inputs.Mouse
 {
     public class MouseEvent
     {
