@@ -23,9 +23,13 @@ Quantum provides cross-platform bindings for:
 The [API Documentation](https://doc/) is
 available on the web to browse.
 
+> This is an experimental version. She is unstable.
+> Some components are redesigned to the specifics of the .NET platform.
+> The project is not optimized. Optimization is currently highlighted.
+
 <br/>
 
-![N|Solid](https://github.com/Winster332/Quantum/blob/master/Images/logo.png)
+![GitHub Logo](/Images/logo.png)
 
 ### Why precisely Quantum?
 Because the technologies of VPF, VF, Android, they do not simultaneously provide flexibility and cross-platform. For a quantum you do not have to learn something new. If you know the basics of CTML, that will be enough.
