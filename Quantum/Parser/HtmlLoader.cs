@@ -9,6 +9,7 @@ using Quantum.DOM;
 using Quantum.Extensions;
 using Quantum.HTML;
 using Quantum.Parser.HTML;
+using File = System.IO.File;
 
 namespace Quantum.Parser
 {
@@ -51,6 +52,11 @@ namespace Quantum.Parser
 
         public Window LoadFromFile(string file)
         {
+            if (!File.Exists(file))
+            {
+                return null;
+            }
+
             var source = ReadFromFile(file);
             
             return LoadSource(source);

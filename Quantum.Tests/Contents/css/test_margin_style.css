@@ -1,0 +1,11 @@
+.marginOneFieldTest {
+    margin: 10px;
+}
+
+.marginTwoFieldTest {
+    margin: 10px 20px;
+}
+
+.marginFourFieldTest {
+    margin: 10px 1px 5px 15px;
+}

@@ -1,6 +1,9 @@
+using Quantum.HTML;
+using SkiaSharp;
+
 namespace Quantum.DOM
 {
-    public class HTMLHyperlinkElementUtils
+    public class HTMLHyperlinkElementUtils : HTMLElement
     {
         public string Href { get; set; }
         public string Protocol { get; set; }
@@ -17,6 +20,16 @@ namespace Quantum.DOM
         public override string ToString()
         {
             return Href;
+        }
+
+        internal override void Load()
+        {
+            
+        }
+
+        internal override bool Draw(SKCanvas canvas)
+        {
+            return false;
         }
     }
 }
