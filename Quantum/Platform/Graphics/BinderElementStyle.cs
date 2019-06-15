@@ -29,6 +29,22 @@ namespace Quantum.Platform.Graphics
             var classes = FindClasses(element);
             styles.AddRange(classes);
 
+            var tags = FindTags(element);
+            styles.AddRange(tags);
+
+            return styles;
+        }
+
+        private List<CSSRule> FindTags(HTMLElement element)
+        {
+            var styles = new List<CSSRule>();
+
+            var elementName = element.TagName;
+
+            styles = _styleSheets.SelectMany(x => x.CssRules)
+                .Where(x => x.SelectorText.Replace("\"", "").Replace("#", "") == elementName)
+                .ToList();
+            
             return styles;
         }
 
@@ -36,11 +52,6 @@ namespace Quantum.Platform.Graphics
         {
             var styles = new List<CSSRule>();
             
-            if (element == null)
-            {
-                return styles;
-            }
-
             var className = element.GetAttribute("class")?.Value.Replace("\"", "").Replace(".", "");
             if (className != null)
             {
