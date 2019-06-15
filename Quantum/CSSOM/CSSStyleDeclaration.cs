@@ -125,6 +125,14 @@ namespace Quantum.CSSOM
             Margin = Margin.Clone() as CSSMargin,
             Border = Border.Clone() as CSSBorder,
             Cursor = Cursor.Clone() as CSSCursor,
+            Float = Float.Clone() as CSSFloat,
+            Font = Font.Clone() as CSSFont,
+            Left = Left.Clone() as CSSNumber,
+            Right = Right.Clone() as CSSNumber,
+            Width = Width.Clone() as CSSNumber,
+            Height = Height.Clone() as CSSNumber,
+            Display = Display.Clone() as CSSDisplay,
+            Position = Position.Clone() as CSSPosition
           };
           
           return style;

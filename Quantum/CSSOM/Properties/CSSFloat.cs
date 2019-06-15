@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace Quantum.CSSOM.Properties
@@ -11,7 +12,7 @@ namespace Quantum.CSSOM.Properties
         Inherit
     }
 
-    public class CSSFloat
+    public class CSSFloat : ICloneable
     {
         public CSSFloatType Value { get; set; }
 
@@ -32,6 +33,14 @@ namespace Quantum.CSSOM.Properties
             }
 
             return cssFloat;
+        }
+
+        public object Clone()
+        {
+          return new CSSFloat
+          {
+            Value = Value
+          };
         }
     }
 }

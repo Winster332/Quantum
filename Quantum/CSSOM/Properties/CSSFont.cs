@@ -1,8 +1,9 @@
+using System;
 using Quantum.CSSOM.Common;
 
 namespace Quantum.CSSOM.Properties
 {
-    public class CSSFontStyle
+    public class CSSFontStyle : ICloneable
     {
         public enum Type
         {
@@ -23,9 +24,17 @@ namespace Quantum.CSSOM.Properties
             // TODO: Impl
             return null;
         }
+
+        public object Clone()
+        {
+          return new CSSFontStyle
+          {
+            Value = Value
+          };
+        }
     }
 
-    public class CSSFontVariant
+    public class CSSFontVariant : ICloneable
     {
         public enum Type
         {
@@ -45,9 +54,17 @@ namespace Quantum.CSSOM.Properties
             // TODO: Impl
             return null;
         }
+
+        public object Clone()
+        {
+          return new CSSFontVariant
+          {
+            Value = Value
+          };
+        }
     }
 
-    public class CSSFontWeight
+    public class CSSFontWeight : ICloneable
     {
         public enum Type
         {
@@ -70,6 +87,15 @@ namespace Quantum.CSSOM.Properties
         {
             // TODO: Impl
             return null;
+        }
+
+        public object Clone()
+        {
+          return new CSSFontWeight
+          {
+            Value = Value,
+            Size = Size.Clone() as CSSNumber
+          };
         }
     }
 
@@ -106,7 +132,7 @@ namespace Quantum.CSSOM.Properties
     }
 
 
-    public class CSSFont
+    public class CSSFont : ICloneable
     {
         [CssField("style")]
         public CSSFontStyle Style { get; set; }
@@ -143,6 +169,16 @@ namespace Quantum.CSSOM.Properties
         {
             // TODO: Impl
             return null;
+        }
+
+        public object Clone()
+        {
+          return new CSSFont
+          {
+            Style = Style.Clone() as CSSFontStyle,
+            Variant = Variant.Clone() as CSSFontVariant,
+            Weight = Weight.Clone() as CSSFontWeight,
+          };
         }
     }
 }

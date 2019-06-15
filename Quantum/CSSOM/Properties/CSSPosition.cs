@@ -1,3 +1,5 @@
+using System;
+
 namespace Quantum.CSSOM.Properties
 {
     public enum CSSPositionType
@@ -6,7 +8,7 @@ namespace Quantum.CSSOM.Properties
         Fixed
     }
 
-    public class CSSPosition
+    public class CSSPosition : ICloneable
     {
         public CSSPositionType Value { get; set; }
         
@@ -19,6 +21,14 @@ namespace Quantum.CSSOM.Properties
         {
             // TODO: Impl
             return null;
+        }
+
+        public object Clone()
+        {
+          return new CSSPosition
+          {
+            Value = Value
+          };
         }
     }
 }
