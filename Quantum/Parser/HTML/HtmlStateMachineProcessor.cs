@@ -7,8 +7,11 @@ using Quantum.HTML;
 using Quantum.HTML.Elements;
 using Quantum.HTML.Elements.EmbeddedTextSemantics;
 using Quantum.HTML.Elements.Forms;
+using Quantum.HTML.Elements.Interactive;
+using Quantum.HTML.Elements.Media;
 using Quantum.HTML.Elements.Metadata;
 using Quantum.HTML.Elements.Scripting;
+using Quantum.HTML.Elements.Text;
 using Quantum.Parser.Common;
 
 namespace Quantum.Parser.HTML
@@ -42,17 +45,67 @@ namespace Quantum.Parser.HTML
                 Document.DocType.Name = attrs.FirstOrDefault()?.Value;
             });
             
-            AddRule<HTMLHtmlElement>();
-            AddRule<HTMLHeadElement>();
-            AddRule<HTMLMetaElement>();
-            AddRule<HTMLTitleElement>();
-            AddRule<HTMLBodyElement>();
-            AddRule<HTMLLinkElement>();
-            AddRule<HTMLStyleElement>();
-            AddRule<HTMLButtonElement>();
-            AddRule<HTMLScriptElement>();
-            AddRule<HTMLCanvasElement>();
+            #region Embedded text semantic
+            
             AddRule<HTMLAnchorElement>();
+            AddRule<HTMLQuoteElement>();
+            AddRule<HTMLSpanElement>();
+            
+            #endregion
+            
+            #region Forms
+            
+            AddRule<HTMLButtonElement>();
+            AddRule<HTMLFormElement>();
+            AddRule<HTMLInputElement>();
+            AddRule<HTMLLabelElement>();
+            
+            #endregion
+            
+            #region Ineractive
+            
+            AddRule<HTMLMenuElement>();
+            
+            #endregion
+            
+            #region Media
+            
+            AddRule<HTMLImageElement>();
+            
+            #endregion
+            
+            #region Metadata
+            
+            AddRule<HTMLHeadElement>();
+            AddRule<HTMLLinkElement>();
+            AddRule<HTMLMetaElement>();
+            AddRule<HTMLStyleElement>();
+            AddRule<HTMLTitleElement>();
+            
+            #endregion
+            
+            #region Scripting
+            
+            AddRule<HTMLCanvasElement>();
+            AddRule<HTMLScriptElement>();
+            
+            #endregion
+            
+            #region Text
+            
+            AddRule<HTMLDivElement>();
+            AddRule<HTMLParagraphElement>();
+            AddRule<HTMLPreElement>();
+            
+            #endregion
+            
+            #region Base
+            
+            AddRule<HTMLBodyElement>();
+            AddRule<HTMLHtmlElement>();
+            AddRule<HTMLOutputElement>();
+            
+            #endregion
         }
 
         private void AddRule<T>() where T : class

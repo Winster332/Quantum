@@ -17,8 +17,6 @@ namespace Quantum.Parser
         private HtmlStateMachineProcessor _stateMachine;
         public Window LoadSource(string source)
         {
-            var list = new List<string>();
-            
             _stateMachine = new HtmlStateMachineProcessor(source);
             _stateMachine.Run();
 
