@@ -1,3 +1,5 @@
+using System;
+
 namespace Quantum.CSSOM.Properties
 {
     public enum CSSDisplayType
@@ -7,7 +9,7 @@ namespace Quantum.CSSOM.Properties
         InlineBlock
     }
 
-    public class CSSDisplay
+    public class CSSDisplay : ICloneable
     {
         public CSSDisplayType Value { get; set; }
         
@@ -20,6 +22,14 @@ namespace Quantum.CSSOM.Properties
         {
             // TODO: Impl
             return null;
+        }
+
+        public object Clone()
+        {
+          return new CSSDisplay
+          {
+            Value = Value
+          };
         }
     }
 }

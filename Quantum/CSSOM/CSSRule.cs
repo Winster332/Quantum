@@ -1,6 +1,8 @@
+using System;
+
 namespace Quantum.CSSOM
 {
-    public class CSSRule
+    public class CSSRule : ICloneable
     {
         public string CssText { get; set; }
         public CSSRule ParentRule { get; set; }
@@ -11,6 +13,21 @@ namespace Quantum.CSSOM
 
         public CSSRule()
         {
+        }
+
+        public object Clone()
+        {
+          var rule = new CSSRule
+          {
+            CssText = CssText,
+            ParentRule = ParentRule?.Clone() as CSSRule,
+            ParentStyleSheet = ParentStyleSheet,
+            SelectorText = SelectorText,
+            Type = Type,
+            Style = Style.Clone() as CSSStyleDeclaration
+          };
+
+          return rule;
         }
     }
 }

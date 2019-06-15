@@ -57,6 +57,12 @@
       <None Update="Contents\css\test_padding_style.css">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="Contents\test_html_layout_ingerit_styles.html">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Contents\test_html_inherit_styles_with_parent.html">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

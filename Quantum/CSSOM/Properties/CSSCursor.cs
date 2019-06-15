@@ -46,7 +46,7 @@ namespace Quantum.CSSOM.Properties
         Inherit
     }
 
-    public class CSSCursor
+    public class CSSCursor : ICloneable
     {
         public CSSCursorType Value { get; set; }
 
@@ -74,6 +74,14 @@ namespace Quantum.CSSOM.Properties
             cursor.Value = result;
             
             return cursor;
+        }
+
+        public object Clone()
+        {
+          return new CSSCursor
+          {
+            Value = Value
+          };
         }
     }
 }
