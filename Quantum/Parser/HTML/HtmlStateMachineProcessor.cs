@@ -104,6 +104,7 @@ namespace Quantum.Parser.HTML
             AddRule<HTMLBodyElement>();
             AddRule<HTMLHtmlElement>();
             AddRule<HTMLOutputElement>();
+            AddRule<HTMLCommentElement>();
             
             #endregion
         }
@@ -274,6 +275,11 @@ namespace Quantum.Parser.HTML
                 {
                     openElement.AppendChild(elementInstance);
                     OpennedElements.Push(openElement);
+
+
+                    if (elementType == typeof(HTMLCommentElement))
+                    {
+                    }
                 }
                 else
                 {
