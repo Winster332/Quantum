@@ -34,6 +34,26 @@ namespace Quantum.Platform.Graphics
             var tags = FindTags(element);
             styles.AddRange(tags);
 
+            var all = FindByAll();
+            styles.AddRange(all);
+
+            var attrs = FindAttributes();
+            styles.AddRange(attrs);
+            
+            return styles;
+        }
+
+        private List<CSSRule> FindAttributes()
+        {
+            var styles = _rules.Where(x => x.SelectorText.FirstOrDefault() == '[' && x.SelectorText.FirstOrDefault() == ']')
+                .ToList();
+            return styles;
+        }
+        
+        private List<CSSRule> FindByAll()
+        {
+            var styles = _rules.Where(x => x.SelectorText == "*")
+                .ToList();
             return styles;
         }
 
