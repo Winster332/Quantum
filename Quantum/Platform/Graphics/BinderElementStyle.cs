@@ -90,7 +90,7 @@ namespace Quantum.Platform.Graphics
                 text = text.Replace(symbol, "");
             }
 
-            return text;
+            return text.Replace("\r", "");
         }
     }
 }

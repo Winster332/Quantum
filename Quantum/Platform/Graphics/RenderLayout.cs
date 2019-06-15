@@ -28,5 +28,10 @@ namespace Quantum.Platform.Graphics
         {
             return $"Layouts - {Layouts.Count}";
         }
+
+        public CSSRule MerageStyleWithParent()
+        {
+          return Parent?.CssRule;
+        }
     }
 }

@@ -111,5 +111,26 @@ namespace Quantum.Tests.Renderer
             var button = body.Layouts.FirstOrDefault();
             button.CssRule.Should().NotBeNull();
         }
+
+        [Fact]
+        public void BuildRender_InheritStyles_RenderLayout()
+        {
+            var _renderTree = new RenderTree();
+            var loader = new HtmlLoader();
+            var window = loader.LoadFromFile("Contents/test_html_layout_ingerit_styles.html");
+            
+            _renderTree.Build(window);
+            var root = _renderTree.LayoutRoot;
+            var html = root.Layouts.FirstOrDefault();
+            var body = html.Layouts.LastOrDefault();
+            var baseDiv = body.Layouts.FirstOrDefault();
+            baseDiv.CssRule.Should().NotBeNull();
+            
+            var childrenDiv = baseDiv.Layouts;
+            foreach (var renderLayout in childrenDiv)
+            {
+              renderLayout.CssRule.Should().BeEquivalentTo(baseDiv.CssRule);
+            }
+        }
     }
 }

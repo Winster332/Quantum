@@ -73,6 +73,11 @@ namespace Quantum.Platform.Graphics
             
             BuildRenderStructure(layout);
             currentLayout.AddLayout(layout);
+
+            if (layout.CssRule == null)
+            {
+              layout.CssRule = layout.MerageStyleWithParent();
+            }
         }
     }
 }
