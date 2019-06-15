@@ -10,6 +10,7 @@ namespace Quantum.Platform.Graphics
     public class RenderTree
     {
         public RenderLayout LayoutRoot { get; set; }
+        private BinderElementStyle _binderElementStyle;
         private Document _document;
         private Window _window;
         public RenderTree()
@@ -21,6 +22,7 @@ namespace Quantum.Platform.Graphics
         {
             _window = window;
             _document = _window.Document;
+            _binderElementStyle = new BinderElementStyle(_document);
             
             TransformHtmlToRender();
         }
@@ -66,33 +68,11 @@ namespace Quantum.Platform.Graphics
             var layout = new RenderLayout
             {
                 Element = htmlElement as HTMLElement,
-                CssRule = FindClasses(htmlElement as HTMLElement).FirstOrDefault()
+                CssRule = _binderElementStyle.Bind(htmlElement as HTMLElement).FirstOrDefault()
             };
             
             BuildRenderStructure(layout);
             currentLayout.AddLayout(layout);
-        }
-
-        private List<CSSRule> FindClasses(HTMLElement element)
-        {
-            var styles = new List<CSSRule>();
-            
-            if (element == null)
-            {
-                return styles;
-            }
-
-            var className = element.GetAttribute("class")?.Value.Replace("\"", "").Replace(".", "");
-            if (className != null)
-            {
-                styles = _document.StyleSheets
-                    .Select(x => x as CSSStyleSheet)
-                    .SelectMany(x => x.CssRules)
-                    .Where(x => x.SelectorText.Replace(".", "").Replace("\"", "") == className)
-                    .ToList();
-            }
-
-            return styles;
         }
     }
 }
