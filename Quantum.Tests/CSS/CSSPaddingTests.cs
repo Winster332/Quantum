@@ -13,5 +13,13 @@ namespace Quantum.Tests.CSS
             
             Console.WriteLine("123");
         }
+        
+        [Fact]
+        public void CSSPaddingParseFullA()
+        {
+            var padding = CSSPadding.Parse("35px 70px");
+            
+            Console.WriteLine("123");
+        }
     }
 }

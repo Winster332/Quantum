@@ -104,8 +104,13 @@ namespace Quantum.CSSOM
                         propertyParentInstance = property.GetValue(propertyParentInstance, null);
                         property = property.PropertyType.GetProperty(pathToField);
                     }
-                    
-                    var result = parseMethod.Invoke(null, new []{ value.Replace(" ", "") });
+
+                    if (value.FirstOrDefault() == ' ')
+                    {
+                        value = value.Substring(1, value.Length - 1);
+                    }
+
+                    var result = parseMethod.Invoke(null, new []{ value });
                     
                     property.SetValue(propertyParentInstance, result);
                 }

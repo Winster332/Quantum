@@ -38,20 +38,20 @@ namespace Quantum.Tests.CSS
             var sheet = loader.LoadFromFile("Contents/css/test_margin_style.css");
 
             sheet.CssRules.Should().HaveCount(3);
-            var marginOne = sheet.CssRules[1];
-            marginOne.SelectorText.Should().BeEquivalentTo(".marginOneFieldTest");
+            var margin = sheet.CssRules[1];
+            margin.SelectorText.Should().BeEquivalentTo(".marginTwoFieldTest");
             
-            marginOne.Style.Margin.Bottom.Type.Should().BeEquivalentTo(CSSNumberType.Px);
-            marginOne.Style.Margin.Bottom.Value.Should().BeGreaterOrEqualTo(10);
+            margin.Style.Margin.Bottom.Type.Should().BeEquivalentTo(CSSNumberType.Px);
+            margin.Style.Margin.Bottom.Value.Should().BeGreaterOrEqualTo(10);
             
-            marginOne.Style.Margin.Top.Type.Should().BeEquivalentTo(CSSNumberType.Px);
-            marginOne.Style.Margin.Top.Value.Should().BeGreaterOrEqualTo(10);
+            margin.Style.Margin.Top.Type.Should().BeEquivalentTo(CSSNumberType.Px);
+            margin.Style.Margin.Top.Value.Should().BeGreaterOrEqualTo(10);
             
-            marginOne.Style.Margin.Left.Type.Should().BeEquivalentTo(CSSNumberType.Px);
-            marginOne.Style.Margin.Left.Value.Should().BeGreaterOrEqualTo(10);
+            margin.Style.Margin.Left.Type.Should().BeEquivalentTo(CSSNumberType.Px);
+            margin.Style.Margin.Left.Value.Should().BeGreaterOrEqualTo(20);
             
-            marginOne.Style.Margin.Right.Type.Should().BeEquivalentTo(CSSNumberType.Px);
-            marginOne.Style.Margin.Right.Value.Should().BeGreaterOrEqualTo(10);
+            margin.Style.Margin.Right.Type.Should().BeEquivalentTo(CSSNumberType.Px);
+            margin.Style.Margin.Right.Value.Should().BeGreaterOrEqualTo(20);
         }
     }
 }
