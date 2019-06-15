@@ -10,11 +10,13 @@ namespace Quantum.Platform.Graphics
     {
         private Document _document;
         private List<CSSStyleSheet> _styleSheets;
+        private List<CSSRule> _rules;
 
         public BinderElementStyle(Document document)
         {
             _document = document;
-            _styleSheets = document.StyleSheets.OfType<CSSStyleSheet>().ToList();
+            _styleSheets = _document.StyleSheets.OfType<CSSStyleSheet>().ToList();
+            _rules = _styleSheets.SelectMany(x => x.CssRules).ToList();
         }
 
         public List<CSSRule> Bind(HTMLElement element)
@@ -41,8 +43,7 @@ namespace Quantum.Platform.Graphics
 
             var elementName = element.TagName;
 
-            styles = _styleSheets.SelectMany(x => x.CssRules)
-                .Where(x => x.SelectorText.Replace("\"", "").Replace("#", "") == elementName)
+            styles = _rules.Where(x => CleanUp(x.SelectorText, "\"", "#") == elementName)
                 .ToList();
             
             return styles;
@@ -55,13 +56,21 @@ namespace Quantum.Platform.Graphics
             var className = element.GetAttribute("class")?.Value.Replace("\"", "").Replace(".", "");
             if (className != null)
             {
-                styles = _styleSheets
-                    .SelectMany(x => x.CssRules)
-                    .Where(x => x.SelectorText.Replace(".", "").Replace("\"", "") == className)
+                styles = _rules.Where(x => CleanUp(x.SelectorText, "\"", ".") == className)
                     .ToList();
             }
 
             return styles;
+        }
+
+        private string CleanUp(string text, params string[] symbols)
+        {
+            foreach (var symbol in symbols)
+            {
+                text = text.Replace(symbol, "");
+            }
+
+            return text;
         }
     }
 }
