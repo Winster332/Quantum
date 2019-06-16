@@ -1,7 +1,12 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using FluentAssertions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Quantum.CSSOM;
 using Quantum.CSSOM.Common;
+using Quantum.CSSOM.Properties;
 using Quantum.Parser;
 using Quantum.Platform.Graphics;
 using Xunit;
@@ -157,7 +162,50 @@ namespace Quantum.Tests.Renderer
             var twoStyle = twoLevelA.CssRule.Style;
             var oneStyle = mainDiv.CssRule.Style;
             twoStyle.Color.Should().BeEquivalentTo(oneStyle.Color);
-            twoStyle.Background.Color.Should().BeEquivalentTo(new CSSColor(255, 204, 85, 255));
+            twoStyle.Background.Color.Should().BeEquivalentTo(new CSSColor(17, 17, 17));
+        }
+
+        [Fact]
+        public void MergeStyleTest()
+        {
+            var style1 = new CSSStyleDeclaration();
+            style1.Color = new CSSColor(233, 255, 255, 255);
+            var style2 = new CSSStyleDeclaration();
+            style2.Display = new CSSDisplay
+            {
+                Value = CSSDisplayType.Inline
+            };
+            
+            var result = GetStyleDiff(style1, style2);
+            result.Color.Should().BeEquivalentTo(style1.Color);
+            result.Display.Value.Should().BeEquivalentTo(CSSDisplayType.Inline);
+        }
+
+        public CSSStyleDeclaration GetStyleDiff(CSSStyleDeclaration style1, CSSStyleDeclaration style2)
+        {
+            var type1 = style1.GetType();
+            var type2 = style2.GetType();
+
+            var fields1 = type1.GetProperties().ToDictionary(x => x.Name, x => x.GetValue(style1));
+            var fields2 = type2.GetProperties().ToDictionary(x => x.Name, x => x.GetValue(style2));
+            var resultStyle = style2.Clone() as CSSStyleDeclaration;
+            
+            foreach (var keyValuePair in fields1)
+            {
+                var fieldName = keyValuePair.Key;
+                var fieldValue1 = keyValuePair.Value;
+                var fieldValue2 = fields2[fieldName];
+
+                var jt1 = JsonConvert.SerializeObject(fieldValue1);
+                var jt2 = JsonConvert.SerializeObject(fieldValue2);
+
+                if (jt1 != jt2)
+                {
+                    resultStyle.GetType().GetProperty(fieldName).SetValue(resultStyle, fieldValue2);
+                }
+            }
+
+            return resultStyle;
         }
     }
 }

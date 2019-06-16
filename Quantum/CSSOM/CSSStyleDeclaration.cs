@@ -11,6 +11,7 @@ namespace Quantum.CSSOM
 {
     public class CSSStyleDeclaration : ICloneable
     {
+        internal List<string> ChangedFields { get; set; }
         [CssField("position")]
         public CSSPosition Position { get; set; }
         
@@ -69,6 +70,7 @@ namespace Quantum.CSSOM
             Height = new CSSNumber();
             Display = new CSSDisplay();
             Position = new CSSPosition();
+            ChangedFields = new List<string>();
         }
         
         public string GetCssText()
@@ -96,6 +98,8 @@ namespace Quantum.CSSOM
 
                     var property = styleType.GetProperty(refType.PropertyPath.FirstOrDefault());
                     var propertyParentInstance = (object)style;
+                    
+                    style.ChangedFields.Add(property.Name);
                     
                     for (var i = 1; i < refType.PropertyPath.Count; i++)
                     {

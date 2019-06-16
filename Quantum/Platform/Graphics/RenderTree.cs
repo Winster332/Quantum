@@ -71,6 +71,14 @@ namespace Quantum.Platform.Graphics
                 CssRule = _binderElementStyle.Bind(htmlElement as HTMLElement).FirstOrDefault()
             };
             
+            if (layout.CssRule != null && currentLayout.CssRule != null)
+            {
+                var parentStyle = currentLayout.CssRule.Style;
+                var currentStyle = layout.CssRule.Style;
+
+                layout.CssRule.Style = MergeStyle(parentStyle, currentStyle);
+            }
+            
             BuildRenderStructure(layout);
             currentLayout.AddLayout(layout);
 
@@ -78,6 +86,24 @@ namespace Quantum.Platform.Graphics
             {
               layout.CssRule = layout.MerageStyleWithParent();
             }
+        }
+
+        private CSSStyleDeclaration MergeStyle(CSSStyleDeclaration def1, CSSStyleDeclaration def2)
+        {
+            var result = def2.Clone() as CSSStyleDeclaration;
+
+            foreach (var def1ChangedField in def1.ChangedFields)
+            {
+                var isDoubleChenge = def2.ChangedFields.FirstOrDefault(x => x == def1ChangedField);
+
+                if (isDoubleChenge == null)
+                {
+                    var def1PropertyValue = def1.GetType().GetProperty(def1ChangedField).GetValue(def1);
+                    result.GetType().GetProperty(def1ChangedField).SetValue(result, def1PropertyValue);
+                }
+            }
+            
+            return result;
         }
     }
 }

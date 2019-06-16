@@ -22,7 +22,7 @@ namespace Quantum.CSSOM.Properties
     {
       return new CSSBackground
       {
-        Color = Color.Clone() as CSSColor
+        Color = Color?.Clone() as CSSColor
       };
     }
   }
