@@ -13,9 +13,12 @@ namespace Quantum.Platform.Graphics
         private BinderElementStyle _binderElementStyle;
         private Document _document;
         private Window _window;
+        private RenderCompositor _compositor;
+        
         public RenderTree()
         {
             LayoutRoot = null;
+            _compositor = new RenderCompositor(_window);
         }
 
         public void Build(Window window)
@@ -78,14 +81,16 @@ namespace Quantum.Platform.Graphics
 
                 layout.CssRule.Style = MergeStyle(parentStyle, currentStyle);
             }
-            
-            BuildRenderStructure(layout);
-            currentLayout.AddLayout(layout);
 
             if (layout.CssRule == null)
             {
-              layout.CssRule = layout.MerageStyleWithParent();
+                layout.CssRule = currentLayout.CssRule;
             }
+            
+            _compositor.CompositeApply(layout);
+            
+            BuildRenderStructure(layout);
+            currentLayout.AddLayout(layout);
         }
 
         private CSSStyleDeclaration MergeStyle(CSSStyleDeclaration def1, CSSStyleDeclaration def2)
