@@ -63,6 +63,9 @@
       <None Update="Contents\test_html_inherit_styles_with_parent.html">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="Contents\test_compositor_absolute_position.html">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

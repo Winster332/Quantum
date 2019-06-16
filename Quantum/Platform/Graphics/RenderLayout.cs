@@ -11,6 +11,10 @@ namespace Quantum.Platform.Graphics
         public RenderLayout Parent { get; set; }
         public HTMLElement Element { get; set; }
         public CSSRule CssRule { get; set; }
+        public float AbsoluteX { get; set; }
+        public float AbsoluteY { get; set; }
+        public float Width { get; set; }
+        public float Height { get; set; }
 
         public RenderLayout()
         {
