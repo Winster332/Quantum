@@ -99,6 +99,11 @@ Built render tree. Transforms styles for [SkiaSharp](https://github.com/mono/Ski
  
 For cross-platform audio playback, a special module is used that uses [AFPlay/AFInfo](https://github.com/Winster332/AFPlay) for MacOS, [NAudio](https://github.com/naudio/NAudio) for Windows, and must be implemented for Android and Linux.
 
+### Local storage
+
+LocalStorage is a repository, analogous to the fact that in browsers, with the ability to expand and store data in a database. Allows to integrate.
+By default, serializes data to hml and stores directives in the root.
+
 ### Language
 
 You can choose the language you want to use. 
