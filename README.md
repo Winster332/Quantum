@@ -7,19 +7,6 @@ Drawing graphics occurs by Skiasharp/OpenL. This allows you to increase the spee
 This is not Electron, and not a new browser. This technology allows you to use HTML/CSS rate for your needs.
 WebAPI repeats API browsers, and you should not feel a significant difference in C# and JS using Quantum.
 
-Quantum provides cross-platform bindings for:
-
- - .NET Standard 1.3
- - .NET Core
- - Tizen
- - Xamarin.Android
- - Xamarin.iOS
- - Xamarin.tvOS
- - Xamarin.watchOS
- - Xamarin.Mac
- - Windows Classic Desktop (Windows.Forms / WPF)
- - Windows UWP (Desktop / Mobile / Xbox / HoloLens)
-
 The [API Documentation](https://doc/) is
 available on the web to browse.
 
